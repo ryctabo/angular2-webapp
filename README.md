@@ -1,5 +1,5 @@
-# Java Jersey JAX-RS ![Build Status](https://nativapps.visualstudio.com/_apis/public/build/definitions/68e8cfce-ec95-4033-bb10-c9812bc2de6a/7/badge)
-This project takes care of the interactions in applications into the Arpia Platform, providing a REST web
+# Java Jersey JAX-RS
+This project takes care of the interactions in applications, providing a REST web
 application where it offers resources and endpoins for its use.
 
 ## Getting Started
