@@ -1,0 +1,113 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [searchable, paged, orderable, dateFilter]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: DiscountResponse[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              countUsed: 7
+              name: 'discount #1'
+              startDate: 2017-04-01T08:00:00.000Z
+              endDate: 2017-04-10T08:00:00.000Z
+              percent: 0.5
+              useLimit: 100
+            - #start item 2
+              id: 2
+              countUsed: 3
+              name: 'discount #2'
+              startDate: 2017-05-01T08:00:00.000Z
+              endDate: 2017-05-10T08:00:00.000Z
+              percent: 0.8
+              useLimit: 200
+          total: 2
+post:
+  body:
+    example:
+      name: 'discount #1'
+      startDate: 2017-05-01T08:00:00.000Z
+      endDate: 2017-05-10T08:00:00.000Z
+      percent: 0.8
+      useLimit: 200
+  responses:
+    201:
+      body:
+        type: DiscountResponse
+        example:
+          id: 1
+          countUsed: 7
+          name: 'discount #1'
+          startDate: 2017-04-01T08:00:00.000Z
+          endDate: 2017-04-10T08:00:00.000Z
+          percent: 0.5
+          useLimit: 100
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          type: DiscountResponse
+          example:
+            id: 1
+            countUsed: 7
+            name: 'discount #1'
+            startDate: 2017-04-01T08:00:00.000Z
+            endDate: 2017-04-10T08:00:00.000Z
+            percent: 0.5
+            useLimit: 100
+  put:
+    body:
+      example:
+        name: 'discount #1'
+        startDate: 2017-05-01T08:00:00.000Z
+        endDate: 2017-05-10T08:00:00.000Z
+        percent: 0.8
+        useLimit: 200
+    responses:
+      200:
+        body:
+          type: DiscountResponse
+          example:
+            id: 1
+            countUsed: 7
+            name: 'discount #1'
+            startDate: 2017-04-01T08:00:00.000Z
+            endDate: 2017-04-10T08:00:00.000Z
+            percent: 0.5
+            useLimit: 100
+  delete:
+    responses:
+      200:
+        body:
+          type: DiscountResponse
+          example:
+            id: 1
+            countUsed: 7
+            name: 'discount #1'
+            startDate: 2017-04-01T08:00:00.000Z
+            endDate: 2017-04-10T08:00:00.000Z
+            percent: 0.5
+            useLimit: 100
+  /changes: !include changes.raml
+
+
+
+
+
+
+
+
+
+      
+
+
+
+    

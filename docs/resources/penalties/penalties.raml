@@ -1,0 +1,311 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [searchable, paged, orderable]
+  queryParameters:
+    messenger:
+      description: Specify the id of the messenger.
+      type: number
+      example: 10
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: PenaltieResponse[]
+          total: number
+        example:
+          items:
+            - # start item 1
+                id: 1
+                messenger:
+                  id: 1
+                  addresses:
+                    - # start address 1
+                      id: 1
+                      neighborhood:
+                        id: 123
+                        name: Jhon Neighborhood
+                      tag: This is the tag
+                      residentialAddress: This is the address
+                    - # start address 2
+                      id: 2
+                      neighborhood:
+                        id: 456
+                        name: Jhon Neighborhood
+                      tag: This is the tag
+                      residentialAddress: This is the address
+                  emails:
+                    - # start email 1
+                      confirmed: true
+                      address: jhondoe@arpia.com
+                    - # start email 2
+                      confirmed: false
+                      address: jhondoe2@arpia.com
+                  phones:
+                    - # start phone 1
+                      confirmed: true
+                      tag: This is the tag
+                      number: '3018888666'
+                      phoneType: CELL_PHONE
+                    - # start phone 2
+                      confirmed: false
+                      tag: This is the tag
+                      number: '6661232'
+                      phoneType: LANDLINE
+                  curriculumVitaeId: 1
+                  userId: 1
+                  mobile: 3018888666
+                  identification: 12H2
+                  name: Jhon
+                  lastName: Doe
+                  gender: MALE
+                  birthday: 1994-04-01T08:00:00.000Z
+                  dismissal: true
+                  observations: This are the observations
+                  photo: http://static.arpia.com/imgs/img_001.jpg
+                  category: 1
+                created: 2017-04-01T08:00:00.000Z
+                updated: 2017-05-01T08:00:00.000Z
+                description: This is the description.
+          total: 1
+post:
+  body:
+    type: PenaltieRequest
+    example:
+      messengerId: 1
+      description: This is the description.
+  responses:
+    201:
+      body:
+        type: PenaltieResponse
+        example:
+          id: 1
+          messenger:
+            id: 1
+            addresses:
+              - # start address 1
+                id: 1
+                neighborhood:
+                  id: 123
+                  name: Jhon Neighborhood
+                tag: This is the tag
+                residentialAddress: This is the address
+              - # start address 2
+                id: 2
+                neighborhood:
+                  id: 456
+                  name: Jhon Neighborhood
+                tag: This is the tag
+                residentialAddress: This is the address
+            emails:
+              - # start email 1
+                confirmed: true
+                address: jhondoe@arpia.com
+              - # start email 2
+                confirmed: false
+                address: jhondoe2@arpia.com
+            phones:
+              - # start phone 1
+                confirmed: true
+                tag: This is the tag
+                number: '3018888666'
+                phoneType: CELL_PHONE
+              - # start phone 2
+                confirmed: false
+                tag: This is the tag
+                number: '6661232'
+                phoneType: LANDLINE
+            curriculumVitaeId: 1
+            userId: 1
+            mobile: 3018888666
+            identification: 12H2
+            name: Jhon
+            lastName: Doe
+            gender: MALE
+            birthday: 1994-04-01T08:00:00.000Z
+            dismissal: true
+            observations: This are the observations
+            photo: http://static.arpia.com/imgs/img_001.jpg
+            category: 1
+          created: 2017-04-01T08:00:00.000Z
+          updated: 2017-05-01T08:00:00.000Z
+          description: This is the description.
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          type: PenaltieResponse
+          example:
+            id: 1
+            messenger:
+              id: 1
+              addresses:
+                - # start address 1
+                  id: 1
+                  neighborhood:
+                    id: 123
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+                - # start address 2
+                  id: 2
+                  neighborhood:
+                    id: 456
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+              emails:
+                - # start email 1
+                  confirmed: true
+                  address: jhondoe@arpia.com
+                - # start email 2
+                  confirmed: false
+                  address: jhondoe2@arpia.com
+              phones:
+                - # start phone 1
+                  confirmed: true
+                  tag: This is the tag
+                  number: '3018888666'
+                  phoneType: CELL_PHONE
+                - # start phone 2
+                  confirmed: false
+                  tag: This is the tag
+                  number: '6661232'
+                  phoneType: LANDLINE
+              curriculumVitaeId: 1
+              userId: 1
+              mobile: 3018888666
+              identification: 12H2
+              name: Jhon
+              lastName: Doe
+              gender: MALE
+              birthday: 1994-04-01T08:00:00.000Z
+              dismissal: true
+              observations: This are the observations
+              photo: http://static.arpia.com/imgs/img_001.jpg
+              category: 1
+            created: 2017-04-01T08:00:00.000Z
+            updated: 2017-05-01T08:00:00.000Z
+            description: This is the description.
+  put:
+    body:
+      type: PenaltieRequest
+      example:
+        messengerId: 1
+        description: This is the description.
+    responses:
+      200:
+        body:
+          type: PenaltieResponse
+          example:
+            id: 1
+            messenger:
+              id: 1
+              addresses:
+                - # start address 1
+                  id: 1
+                  neighborhood:
+                    id: 123
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+                - # start address 2
+                  id: 2
+                  neighborhood:
+                    id: 456
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+              emails:
+                - # start email 1
+                  confirmed: true
+                  address: jhondoe@arpia.com
+                - # start email 2
+                  confirmed: false
+                  address: jhondoe2@arpia.com
+              phones:
+                - # start phone 1
+                  confirmed: true
+                  tag: This is the tag
+                  number: '3018888666'
+                  phoneType: CELL_PHONE
+                - # start phone 2
+                  confirmed: false
+                  tag: This is the tag
+                  number: '6661232'
+                  phoneType: LANDLINE
+              curriculumVitaeId: 1
+              userId: 1
+              mobile: 3018888666
+              identification: 12H2
+              name: Jhon
+              lastName: Doe
+              gender: MALE
+              birthday: 1994-04-01T08:00:00.000Z
+              dismissal: true
+              observations: This are the observations
+              photo: http://static.arpia.com/imgs/img_001.jpg
+              category: 1
+            created: 2017-04-01T08:00:00.000Z
+            updated: 2017-05-01T08:00:00.000Z
+            description: This is the description.
+  delete:
+    responses:
+      200:
+        body:
+          type: PenaltieResponse
+          example:
+            id: 1
+            messenger:
+              id: 1
+              addresses:
+                - # start address 1
+                  id: 1
+                  neighborhood:
+                    id: 123
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+                - # start address 2
+                  id: 2
+                  neighborhood:
+                    id: 456
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+              emails:
+                - # start email 1
+                  confirmed: true
+                  address: jhondoe@arpia.com
+                - # start email 2
+                  confirmed: false
+                  address: jhondoe2@arpia.com
+              phones:
+                - # start phone 1
+                  confirmed: true
+                  tag: This is the tag
+                  number: '3018888666'
+                  phoneType: CELL_PHONE
+                - # start phone 2
+                  confirmed: false
+                  tag: This is the tag
+                  number: '6661232'
+                  phoneType: LANDLINE
+              curriculumVitaeId: 1
+              userId: 1
+              mobile: 3018888666
+              identification: 12H2
+              name: Jhon
+              lastName: Doe
+              gender: MALE
+              birthday: 1994-04-01T08:00:00.000Z
+              dismissal: true
+              observations: This are the observations
+              photo: http://static.arpia.com/imgs/img_001.jpg
+              category: 1
+            created: 2017-04-01T08:00:00.000Z
+            updated: 2017-05-01T08:00:00.000Z
+            description: This is the description.

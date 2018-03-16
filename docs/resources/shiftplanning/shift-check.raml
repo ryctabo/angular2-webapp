@@ -1,0 +1,78 @@
+#%RAML 1.0
+displayName: Shift Checks
+description: |
+  This resource contains all the necessary operations for the management
+  of the shift checks.
+get:
+  description: Get a list of all shift checks.
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: ShiftCheckResponse[]
+        example:
+          - # item 1
+            goodAppearance: true
+            observations: everything fine
+            clockIn: 2017-05-10T08:00:00.000Z
+            clockOut: 2017-05-10T12:00:00.000Z
+            messenger: !include ../../examples/messenger-simple.raml
+          - # item 2
+            goodAppearance: false
+            observations: everything fine
+            clockIn: 2017-05-10T08:00:00.000Z
+            clockOut: 2017-05-10T12:00:00.000Z
+            messenger: !include ../../examples/messenger-simple.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/clockin:
+  post:
+    description: Allows to clockin a shift
+    headers: 
+      Accept-Language: !include ../../accept-language.raml
+    body:
+      type: ShiftCheckRequest
+      example:
+        messengerId: 1
+        goodAppearance: true
+        observations: everything fine
+    responses: 
+      200:
+        body:
+          type: ShiftCheckResponse
+          example:
+            goodAppearance: true
+            observations: everything fine
+            clockIn: 2017-05-10T08:00:00.000Z
+            clockOut: 2017-05-10T12:00:00.000Z
+            messenger: !include ../../examples/messenger-simple.raml
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+/clockout:
+  put:
+    description: Allows to clockout a shift
+    headers: 
+      Accept-Language: !include ../../accept-language.raml
+    body:
+      type: object
+      properties:
+        messengerId: number
+      example:
+        messengerId: 1
+    responses: 
+      200:
+        body:
+          type: ShiftCheckResponse
+          example:
+            goodAppearance: true
+            observations: everything fine
+            clockIn: 2017-05-10T08:00:00.000Z
+            clockOut: 2017-05-10T12:00:00.000Z
+            messenger: !include ../../examples/messenger-simple.raml
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+/keys: !include shift-check-key.raml

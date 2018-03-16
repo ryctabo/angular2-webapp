@@ -1,0 +1,168 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable ]
+  queryParameters:
+    customer?:
+      description: |
+        If you need to filter the list of home services by customers, you can
+        provide the customer ID.
+      type: number
+      example: 1084
+    operation?:
+      description: |
+        If you need to filter the list of home services by operation, you can
+        provide the ID of the operation.
+      type: number
+      example: 1
+    date?:
+      description: |
+        If you need to filter the list of home services by date, provide that
+        date.
+      type: date-only
+      example: 2017-04-10
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Domicile[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              customerId: 1
+              operationId: 1
+              locations:
+                - # location 1
+                  index: 1
+                  address: CRA 45 # 15-32
+                  reference: This is a reference.
+                  coordinates:
+                    latitude: 10.4237186
+                    longitude: -75.5456146
+                  task: This is taks.
+                - # location 2
+                  index: 2
+                  address: CRA 85 # 32-15
+                  reference: This is a reference.
+                  task: This is taks.
+              rating:
+                trustLevel: 3
+                priority: NORMAL
+              requirements:
+                cashRequired: 0.0
+                monitoring: false
+              createDate: 2017-04-20T12:32:00.000Z
+            - # start item 2
+              id: 2
+              customerId: 2
+              operationId: 1
+              locations:
+                - # location 1
+                  index: 1
+                  address: CRA 45 # 15-32
+                  reference: This is a reference.
+                  task: This is taks.
+                - # location 2
+                  index: 2
+                  address: CRA 85 # 32-15
+                  reference: This is a reference.
+                  task: This is taks.
+              rating:
+                trustLevel: 5
+                priority: HIGH
+              requirements:
+                cashRequired: 0.0
+                monitoring: true
+              createDate: 2017-04-20T12:32:00.000Z
+              periodicity:
+                type: monthlyRepeatData
+                time: 12:30:00
+                startDate: 2017-01-01
+                endDate: 2017-12-31
+                every: 1
+                dayOfMonth: 15
+          total: 10
+post:
+  body:
+    example:
+      customerId: 1
+      operationId: 1
+      locations:
+        - # location 1
+          index: 1
+          address: CRA 45 # 15-32
+          reference: This is a reference.
+          coordinates:
+            latitude: 10.4237186
+            longitude: -75.5456146
+          task: This is taks.
+        - # location 2
+          index: 2
+          address: CRA 85 # 32-15
+          reference: This is a reference.
+          task: This is taks.
+      rating:
+        trustLevel: 3
+        priority: NORMAL
+      requirements:
+        cashRequired: 0.0
+        monitoring: false
+/{id}:
+  description: |
+    A specific home service, a item of the home services list.
+  uriParameters:
+    id:
+      description: Domicile ID is required.
+      type: number
+  get:
+    description: Get information about a home service.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: Domicile
+          example: !include ../../examples/domicile.raml
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  put:
+    description: |
+      Update information about the specific home service.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    body: 
+      description: The home service data is required to update.
+      type: Domicile
+    responses: 
+      200:
+        description: It has updated a home service.
+        body:
+          type: Domicile
+          example: !include ../../examples/domicile.raml
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /execute:
+    post:
+      description: Execute an existing home service.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      body:
+        type: object
+        properties:
+          automatic: boolean
+        example:
+          automatic: true
+      responses: 
+        200:
+          description: The executed home service.
+          body:
+            type: DomicileExecute
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

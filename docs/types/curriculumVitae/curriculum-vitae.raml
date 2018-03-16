@@ -1,0 +1,23 @@
+#%RAML 1.0
+properties:
+  id?: number
+  socialSecurity:
+    properties:
+      nameEPS:
+      nameARL:
+      pensionEntity:
+  home:
+    properties:
+      stratum: integer
+      sonsNumber: integer
+      homeownership:
+        enum: [ OWN, RENT ]
+      monthlyExpenses: number
+  civilStatus:
+    enum: [ SINGLE, MARRIED, WIDOWER, COMMITTED, DIVORCED ]
+  birthCity:
+  academicLevel:
+    enum: [ BASIC_EDUCATION, SECONDARY_EDUCATION, TECHNICIAN, TECHNOLOGIST, PROFESSIONAL ]
+  militaryCard?:
+  district?:
+  references?: Reference[]

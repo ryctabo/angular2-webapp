@@ -1,0 +1,70 @@
+#%RAML 1.0
+displayName: Shift Check Keys
+description: |
+  This resource contains all the necessary operations for the management
+  of the shift check keys.
+get:
+  description: Get a list of all shift check keys.
+  queryParameters:
+    messengerId:
+      description: Allows to filter the shift check keys by messenger ID
+      type: number
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: ShiftCheckKeyResponse[]
+        example:
+          - # item 1
+            key: '123456'
+            creationDate: 2017-05-10T08:00:00.000Z
+            useDate: 2017-05-10T08:01:00.000Z
+          - # item 2
+            key: '654321'
+            creationDate: 2017-05-10T08:00:00.000Z
+            useDate: 2017-05-10T08:01:00.000Z
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/generate:
+  get:
+    description: Allows to generate a shift check key
+    queryParameters:
+      messengerId:
+        description: Messenger ID to generate o use the key
+        type: number
+        required: true
+    headers: 
+      Accept-Language: !include ../../accept-language.raml
+    responses: 
+      200:
+        body:
+          type: ShiftCheckKeyResponse
+          example:
+            key: '123456'
+            creationDate: 2017-05-10T08:00:00.000Z
+            useDate: 2017-05-10T08:01:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+/use:
+  post:
+    description: Allows to use a shift check key
+    headers: 
+      Accept-Language: !include ../../accept-language.raml
+    body:
+      type: ShiftCheckKey
+      example:
+        key: '123456'
+    responses: 
+      200:
+        body:
+          type: ShiftCheckKeyResponse
+          example:
+            key: '123456'
+            creationDate: 2017-05-10T08:00:00.000Z
+            useDate: 2017-05-10T08:01:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

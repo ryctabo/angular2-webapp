@@ -1,0 +1,80 @@
+#%RAML 1.0
+type: collection
+displayName: Evaluations of Messengers
+description: |
+  This resource contains all the necessary operations for the management
+  of the messenger evaluations, among these operations we will have HTTP
+  methods to get all the elements, to get a single element, to add new
+  elements to the resource, to edit the existing elements and finally to
+  eliminate.
+get:
+  description: Get a list of all the messenger evaluations.
+  is: [paged]
+  queryParameters:
+    messengerId:
+      description: Specify the id of the messenger.
+      type: number
+      minimum: 1
+      example: 10
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            id: 1
+            user: !include ../../examples/user-simple-1.raml
+            registerDate: 2017-04-01T08:00:00.000Z
+            messengerId: 1
+            detail: This is the detail
+            speed: FAST
+            management: NORMAL
+            confidence: LOW
+          - #start item 2
+            id: 2
+            user: !include ../../examples/user-simple-2.raml
+            registerDate: 2017-04-01T08:00:00.000Z
+            messengerId: 2
+            detail: This is the detail
+            speed: SLOW
+            management: GOOD
+            confidence: HIGH
+post:
+  description: Add a new messenger evaluation.
+  body:
+    example:
+      messengerId: 2
+      detail: This is the detail
+      speed: SLOW
+      management: GOOD
+      confidence: HIGH
+  responses:
+    201:
+      description: It has created a new messenger evaluation.
+/{id}:
+  description: |
+      A specific messenger evaluation, a item of the
+      messenger evaluations list.
+  uriParameters:
+    id:
+      description: Messenger evaluation ID is required.
+      type: number 
+  get:
+    description: Get information about a Messenger evaluation.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: Evaluation
+          example:
+            id: 1
+            user: !include ../../examples/user-simple-1.raml
+            messengerId: 1
+            detail: This is the detail
+            speed: FAST
+            management: NORMAL
+            confidence: LOW
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

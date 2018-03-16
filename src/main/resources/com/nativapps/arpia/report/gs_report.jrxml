@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gs_report" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b24dc802-7d54-4eef-a481-5c9c974ad810">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<field name="lastName" class="java.lang.String"/>
+	<field name="identification" class="java.lang.String"/>
+	<field name="operationName" class="java.lang.String"/>
+	<field name="createdDate" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<image>
+				<reportElement x="230" y="0" width="110" height="101" uuid="d0b6c46b-1097-42f0-86b9-f8b6d56a8576"/>
+				<imageExpression><![CDATA["com/nativapps/arpia/images/arpia-logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="93" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="50" width="500" height="40" uuid="0ba65127-bfed-4b67-af51-c85719520b0e"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Barranquilla, "+$F{createdDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="23" width="501" height="41" uuid="3e899926-7c8b-447e-af3c-850374c77a2e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operationName}+". \nPlataforma ARPIA."]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="50" width="500" height="61" uuid="d18537dd-3513-43b9-b26d-8189040f8b86"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Por medio del presente documento se certifica que el aliado <b>"+$F{name}+"</b> <b>"+$F{lastName}+"</b> identificado con documento N° <b>"+$F{identification}+"</b> no tiene compromisos pendientes con la compañia."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="9" width="150" height="41" uuid="9b6921ad-1af7-45c3-8d5a-dab35a7524cb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CORDIAL SALUDO]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="62" splitType="Stretch">
+			<line>
+				<reportElement x="40" y="20" width="171" height="1" uuid="e2ab3ed9-7a65-4419-b888-9792f114ddaf"/>
+			</line>
+			<staticText>
+				<reportElement x="40" y="27" width="171" height="35" uuid="e4636686-3064-4121-b6a8-2fc486295503"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Firma del representante]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

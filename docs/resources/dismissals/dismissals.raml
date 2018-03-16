@@ -1,0 +1,42 @@
+#%RAML 1.0
+type: collection
+get:
+  queryParameters:
+    messengerId:
+      description: The messenger ID
+      type: number
+      example: 5
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            id: 1
+            dismissal: true
+            reason: This is a reason #1.
+            messengerId: 1
+            register: 2017-04-17T20:30:00.000Z
+          - # start item 2
+            id: 2
+            dismissal: false
+            reason: This is a reason #2.
+            messengerId: 2
+            register: 2017-04-23T20:30:00.000Z
+post:
+  body:
+    example:
+      dismissal: true
+      reason: This is a reason.
+      messengerId: 1
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            dismissal: true
+            reason: This is a reason.
+            messengerId: 1
+            register: 2017-04-17T20:30:00.000Z

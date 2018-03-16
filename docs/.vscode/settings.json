@@ -1,0 +1,6 @@
+// Coloque su configuración en este archivo para sobrescribir la configuración predeterminada y de usuario.
+{
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.renderIndentGuides": true
+}

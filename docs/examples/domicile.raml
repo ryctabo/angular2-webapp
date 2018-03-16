@@ -1,0 +1,32 @@
+#%RAML 1.0
+id: 1
+customerId: 1
+operationId: 1
+locations:
+  - # location 1
+    index: 1
+    address: 'CRA 45 # 15-32'
+    reference: This is a reference.
+    coordinates:
+      latitude: 10.4237186
+      longitude: -75.5456146
+    task: This is taks.
+  - # location 2
+    index: 2
+    address: 'CRA 85 # 32-15'
+    reference: This is a reference.
+    task: This is taks.
+rating:
+  trustLevel: 3
+  priority: NORMAL
+requirements:
+  cashRequired: 0.0
+  monitoring: false
+createDate: 2017-04-20T12:32:00.000Z
+periodicity:
+  type: monthlyRepeatData
+  time: 12:30:00
+  startDate: 2017-01-01
+  endDate: 2017-12-31
+  every: 1
+  dayOfMonth: 15

@@ -1,0 +1,78 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [searchable, paged, orderable]
+  queryParameters:
+    startDate?:
+      description: Specify the start date of the monitoring.
+      type: datetime
+      example: 2017-04-10T08:00:00.000Z
+    endDate?:
+      description: Specify the end date of the monitoring.
+      type: datetime
+      example: 2017-04-10T08:00:00.000Z
+    domicileId?:
+      description: Specify the domicile of the monitoring.
+      type: number
+      example: 10
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: MonitoringResponse[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              user: !include ../../examples/user-simple-1.raml
+              modifierUser: !include ../../examples/user-simple-1.raml
+              registerDate: 2017-04-01T08:00:00.000Z
+              updatedDate: 2017-04-10T08:00:00.000Z
+              domicileId: 1
+              content: this is content
+            - #start item 2
+              id: 2
+              user: !include ../../examples/user-simple-1.raml
+              modifierUser: !include ../../examples/user-simple-2.raml
+              registerDate: 2017-04-01T08:00:00.000Z
+              updatedDate: 2017-04-10T08:00:00.000Z
+              domicileId: 2
+              content: this is content
+          total: 2
+post:
+  body:
+    example:
+      domicileId: 1
+      content: This is content
+  responses:
+    201:
+      body:
+        type: MonitoringResponse
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          type: MonitoringResponse
+          example:
+            id: 1
+            user: !include ../../examples/user-simple-1.raml
+            modifierUser: !include ../../examples/user-simple-2.raml
+            registerDate: 2017-04-01T08:00:00.000Z
+            updatedDate: 2017-04-10T08:00:00.000Z
+            domicileId: 1
+            content: this is content
+  put:
+    body:
+    responses:
+      200:
+        body:
+          type: MonitoringResponse
+  delete:
+    responses:
+      200:
+        body:
+          type: MonitoringResponse

@@ -1,0 +1,114 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Point[]
+          total: number
+        example:
+          items:
+            - # item 1
+              id: 1
+              name: Map Point 1
+              coordinates:
+                latitude: 10.413950
+                longitude: -75.530220
+              coverage: 100
+              type: FIXED
+              schedules:
+                - # schedule 1
+                  weekday: MONDAY
+                  opening: 07:00:00
+                  closing: 21:00:00
+                - # schedule 2
+                  weekday: TUESDAY
+                  opening: 07:00:00
+                  closing: 21:00:00
+              pricings:
+                - # pricing 1
+                  distance: 100
+                  price: 2500.0
+                - # pricing 2
+                  distance: 400
+                  price: 5000.0
+            - # item 1
+              id: 2
+              name: Map Point 2
+              coordinates:
+                latitude: 10.413950
+                longitude: -75.530220
+              type: FIXED
+              schedules:
+                - # schedule 1
+                  weekday: MONDAY
+                  opening: 07:00:00
+                  closing: 21:00:00
+                - # schedule 2
+                  weekday: TUESDAY
+                  opening: 07:00:00
+                  closing: 21:00:00
+              pricings:
+                - # pricing 1
+                  distance: 100
+                  price: 2500.0
+                - # pricing 2
+                  distance: 400
+                  price: 5000.0
+          total: 25
+post:
+  body:
+    example:
+      name: Map Point 2
+      coordinates:
+        latitude: 10.413950
+        longitude: -75.530220
+      type: FIXED
+      schedules:
+        - # schedule 1
+          weekday: MONDAY
+          opening: 07:00:00
+          closing: 21:00:00
+        - # schedule 2
+          weekday: TUESDAY
+          opening: 07:00:00
+          closing: 21:00:00
+      pricings:
+        - # pricing 1
+          distance: 100
+          price: 2500.0
+        - # pricing 2
+          distance: 400
+          price: 5000.0
+/{id}:
+  type: member
+  get:
+    responses: 
+      200:
+        body:
+          example:
+            id: 2
+            name: Map Point 2
+            coordinates:
+              latitude: 10.413950
+              longitude: -75.530220
+            type: FIXED
+            schedules:
+              - # schedule 1
+                weekday: MONDAY
+                opening: 07:00:00
+                closing: 21:00:00
+              - # schedule 2
+                weekday: TUESDAY
+                opening: 07:00:00
+                closing: 21:00:00
+            pricings:
+              - # pricing 1
+                distance: 100
+                price: 2500.0
+              - # pricing 2
+                distance: 400
+                price: 5000.0

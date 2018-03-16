@@ -1,0 +1,8 @@
+#%RAML 1.0
+type: Egress
+discriminatorValue: 'OperatorEgress'
+properties:
+  typeConcept?:
+    enum: [ADVANCEMENT, FIGURATIVE]
+  operatorId?: number
+  operator?: UserSimple

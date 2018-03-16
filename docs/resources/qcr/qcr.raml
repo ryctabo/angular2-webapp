@@ -1,0 +1,236 @@
+#%RAML 1.0
+displayName: QCR
+description: |
+  This resource contains all the necessary operations for the management
+  of the qcr, among these operations we will have HTTP
+  methods to get all the elements.
+get:
+  description: Get a list of all the QCR's.
+  is: [ paged ]
+  queryParameters:
+    customer?:
+      description: |
+        If you need to filter by customer, you can provide the customer ID.
+      type: number
+      example: 1003
+    status?:
+      description: |
+        If you need to filter by the QCR status, you can provide the status
+        in this parameter.
+      enum: [ PENDING, FINISHED, CANCELED ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: QCRData[]
+          total: integer
+        example:
+          items:
+            - # start item 1
+              index: 1
+              customer:
+                id: 0211
+                type: PARTICULAR
+                displayName: Gustavo Pacheco
+                identification: '123456'
+                banned: false
+                observations: This is a observation
+              inconvenient: This is the inconvenient
+              counterpartVersion: This is the counterpart version
+              evaluation: This is the admin evaluation.
+              solution: This is the admin solution.
+              status: FINISHED
+              openingDate: 2017-04-01T08:00:00.000Z
+              closingDate: 2017-05-01T08:00:00.000Z
+            - # start item 2
+              index: 2
+              customer:
+                id: 1003
+                type: PARTICULAR
+                displayName: Luis Lenes
+                identification: '654321'
+                banned: false
+                observations: This is a observation
+              inconvenient: This is the inconvenient
+              status: CANCELED
+              openingDate: 2017-04-01T08:00:00.000Z
+              closingDate: 2017-05-01T08:00:00.000Z
+          total: 10
+    400: !include ../../errors/error-400.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+post:
+  description: Add a new QCR.
+  headers:
+      Accept-Language?: !include ../../accept-language.raml
+  body:
+    type: Inconvenient
+    properties:
+      customer: number
+    example:
+      inconvenient: This is the inconvenient
+      customer: 0211
+  responses: 
+    201:
+      description: It has created a new qcr.
+      body:
+        type: QCRData
+        example:
+          index: 1
+          customer:
+            id: 0211
+            type: PARTICULAR
+            displayName: Gustavo Pacheco
+            identification: '123456'
+            banned: false
+            observations: This is a observation
+          inconvenient: This is the inconvenient
+          status: PENDING
+          openingDate: 2017-04-01T08:00:00.000Z
+    400: !include ../../errors/error-400.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/{id}:
+  description: A specific QCR, a item of the QCR's list.
+  uriParameters:
+    id:
+      description: QCR ID is required.
+      type: number
+  get:
+    description: Get information about a QCR.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    queryParameters:
+      customer:
+        description: Specify the customer ID.
+        type: number
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: QCRData
+          example:
+            index: 1
+            customer:
+              id: 0211
+              type: PARTICULAR
+              displayName: Gustavo Pacheco
+              identification: '123456'
+              banned: false
+              observations: This is a observation
+            inconvenient: This is the inconvenient
+            counterpartVersion: This is the counterpart version
+            evaluation: This is the admin evaluation.
+            solution: This is the admin solution.
+            status: CANCELED
+            openingDate: 2017-04-01T08:00:00.000Z
+            closingDate: 2017-05-01T08:00:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /counterpart:
+    description: The second step in the qcr.
+    put:
+      description: Update the QCR to a step 2.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      queryParameters:
+        customer:
+          description: Specify the customer ID.
+          type: number
+      body:
+        type: Counterpart
+        example:
+          counterpartVersion: This is the counterpart version.
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: QCRData
+            example:
+              index: 1
+              customer:
+                id: 0211
+                type: PARTICULAR
+                displayName: Gustavo Pacheco
+                identification: '123456'
+                banned: false
+                observations: This is a observation
+              inconvenient: This is the inconvenient
+              counterpartVersion: This is the counterpart version.
+              status: PENDING
+              openingDate: 2017-04-01T08:00:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /solution:
+    description: The third step in the qcr.
+    put:
+      description: Update the QCR to a step 3.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      queryParameters:
+        customer:
+          description: Specify the customer ID.
+          type: number
+      body:
+        type: Solution
+        example:
+          evaluation: This is the admin evaluation.
+          solution: This is the admin solution.
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: QCRData
+            example:
+              index: 1
+              customer:
+                id: 0211
+                type: PARTICULAR
+                displayName: Gustavo Pacheco
+                identification: '123456'
+                banned: false
+                observations: This is a observation
+              inconvenient: This is the inconvenient
+              counterpartVersion: This is the counterpart version
+              evaluation: This is the admin evaluation.
+              solution: This is the admin solution.
+              status: FINISHED
+              openingDate: 2017-04-01T08:00:00.000Z
+              closingDate: 2017-05-01T08:00:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /cancel:
+    description: The cancel in the qcr.
+    put:
+      description: Update the QCR to a cancel.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      queryParameters:
+        customer:
+          description: Specify the customer ID.
+          type: number
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: QCRData
+            example:
+              index: 1
+              customer:
+                id: 0211
+                type: PARTICULAR
+                displayName: Gustavo Pacheco
+                identification: '123456'
+                banned: false
+                observations: This is a observation
+              inconvenient: This is the inconvenient
+              status: CANCELED
+              openingDate: 2017-04-01T08:00:00.000Z
+              closingDate: 2017-05-01T08:00:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

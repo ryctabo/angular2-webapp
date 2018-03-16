@@ -1,0 +1,49 @@
+#%RAML 1.0
+usage: This resourceType should be used for any member
+description: |
+  A specific <<resourcePathName | !singularize>>, a item of the
+  <<resourcePathName>> list.
+uriParameters:
+  id:
+    description: <<resourcePathName | !singularize | !uppercamelcase>> ID is required.
+    type: number
+get:
+  description: Get information about a <<resourcePathName | !singularize>>.
+  headers:
+    Accept-Language?: !include ../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: <<resourcePathName | !singularize | !uppercamelcase>>
+    400: !include ../errors/error-400.raml
+    404: !include ../errors/error-404.raml
+    500: !include ../errors/error-500.raml
+put:
+  description: |
+    Update information about the specific <<resourcePathName | !singularize>>.
+  headers:
+    Accept-Language?: !include ../accept-language.raml
+  body: 
+    description: The <<resourcePathName | !singularize>> data is required to update.
+    type: <<resourcePathName | !singularize | !uppercamelcase>>
+  responses: 
+    200:
+      description: It has updated a <<resourcePathName | !singularize>>.
+      body:
+        type: <<resourcePathName | !singularize | !uppercamelcase>>
+    400: !include ../errors/error-400.raml
+    404: !include ../errors/error-404.raml
+    500: !include ../errors/error-500.raml
+delete:
+  description: Remove a specific <<resourcePathName | !singularize>>.
+  headers:
+    Accept-Language?: !include ../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: <<resourcePathName | !singularize | !uppercamelcase>>
+    400: !include ../errors/error-400.raml
+    404: !include ../errors/error-404.raml
+    500: !include ../errors/error-500.raml

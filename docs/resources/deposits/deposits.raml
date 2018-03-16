@@ -1,0 +1,28 @@
+#%RAML 1.0
+displayName: Deposits
+description: |
+  This resource contains all the necessary operations for the management
+  of the security deposit, among these operations we will have HTTP
+  methods to get all the elements.
+get:
+  is: [ paged, orderable, searchable ]
+  description: Get a list of all deposits.
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: Deposit[]
+        example:
+        - # item 1
+          owner: !include ../../examples/user-simple-1.raml
+          paidToDate: 10000.0
+          depositAmount: 50000.0
+        - # item 2
+          owner: !include ../../examples/user-simple-2.raml
+          paidToDate: 20000.0
+          depositAmount: 50000.0 
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/payments: !include payments.raml

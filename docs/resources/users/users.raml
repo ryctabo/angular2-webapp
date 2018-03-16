@@ -1,0 +1,131 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable ]
+  queryParameters:
+    type?:
+      description: Specify if you need filtered result by the user type.
+      enum: [SUPER_USER, ADMINISTRATOR, OPERATOR, MESSENGER, CLIENT]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: User[]
+          total: integer
+        example:
+          items:
+            - # start item 1
+              id: 1
+              username: ryctabo
+              email: ryctabo@mail.com
+              displayName: Gustavo Pacheco
+              userType: OPERATOR
+              roleId: 1
+              urlPic: default
+              operations: [1] # Array of numbers
+              enabled: true
+              created: 2017-04-01T08:00:00.000Z
+            - # start item 2
+              id: 2
+              username: luislenes
+              email: luislenes@mail.com
+              displayName: Luis Lenes
+              userType: OPERATOR
+              roleId: 2
+              urlPic: http://static.arpia.com/imgs/img_001.jpg
+              operations: [1, 2] # Array of numbers
+              enabled: false
+              created: 2017-04-01T08:00:00.000Z
+              updated: 2017-04-01T12:30:00.000Z
+          total: 10
+post:
+  body:
+    type: UserRequest
+    example:
+      username: ryctabo
+      email: ryctabo@mail.com
+      displayName: Gustavo Pacheco
+      password: '123456'
+      userType: OPERATOR
+      roleId: 1
+      operations: [1, 2] # Array of numbers
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            username: ryctabo
+            email: ryctabo@mail.com
+            displayName: Gustavo Pacheco
+            userType: OPERATOR
+            roleId: 1
+            urlPic: default
+            operations: [1] # Array of numbers
+            enabled: true
+            created: 2017-04-01T08:00:00.000Z
+  /disable:
+    description: Disable the specify user
+    put:
+      headers:
+        Accept-Language: !include ../../accept-language.raml
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: User
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /enable:
+    description: Enable the specify user
+    put:
+      headers:
+        Accept-Language: !include ../../accept-language.raml
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: User
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+/username:
+  get:
+    description: Get user information from the given username.
+    headers:
+        Accept-Language: !include ../../accept-language.raml
+    queryParameters:
+      q:
+        description: username to search
+        pattern: ^(?!\d*$)[_a-z\d]{3,12}$$
+        example: juan123
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: User
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+/email:
+  get:
+    description: Get user information from the give email.
+    headers:
+        Accept-Language: !include ../../accept-language.raml
+    queryParameters:
+      q:
+        description: email to search
+        pattern: ^([\w\.-]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})$
+        example: example@mail.com
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: User
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

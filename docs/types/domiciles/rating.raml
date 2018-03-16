@@ -1,0 +1,10 @@
+#%RAML 1.0
+properties:
+  trustLevel:
+    type: integer
+    maximum: 5
+    minimum: 1
+    default: 1
+  priority:
+    enum: [ NORMAL, HIGH ]
+    default: NORMAL

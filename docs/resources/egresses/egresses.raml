@@ -1,0 +1,150 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable ]
+  queryParameters:
+    userId?:
+      description: |
+        If you need to filter the list of egresses by users,
+        you can provide the user ID.
+      type: number
+      example: 1084
+    closureState?:
+      description: |
+        If you need to filter the list of egresses by the
+        closure state (if it is closured or not), you can provide the 
+        state of the egress you want to search for.
+      type: boolean
+      example: true
+    egressType?:
+      description: |
+        If you need to filter the list of egresses by the
+        egress type, provide the type.
+      type: 
+        enum: [MANAGEMENT_EGRESS, MESSENGER_EGRESS, CUSTOMER_EGRESS, OPERATOR_EGRESS]
+      example: MANAGEMENT_EGRESS
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Egress[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              '@type': 'OperatorEgress'
+              concept: Gasto Cliente
+              created: 2017-04-14T14:00:00Z
+              id: 1
+              value: 200000.0
+              operator: !include ../../examples/user-simple-1.raml
+              typeConcept: ADVANCEMENT
+            - #start item 2
+              '@type': 'OperatorEgress'
+              concept: Gasto Cliente
+              created: 2017-04-14T10:20:00Z
+              id: 2
+              value: 50000.0
+              operator: !include ../../examples/user-simple-2.raml
+              typeConcept: ADVANCEMENT
+          total: 2
+post:
+  body:
+    example:
+      value:
+        '@type': 'OperatorEgress'
+        concept: Gasto Cliente
+        value: 200000.0
+        typeConcept: ADVANCEMENT
+        operatorId: 1
+  responses:
+    201:
+      body:
+        example:
+          value:
+            '@type': 'OperatorEgress'
+            concept: Gasto Cliente
+            created: 2017-04-14T14:00:00Z
+            id: 1
+            value: 200000.0
+            operator: !include ../../examples/user-simple-1.raml
+            typeConcept: ADVANCEMENT
+/{id}:
+  description: A specific egress, a item of the egresses list.
+  uriParameters:
+    id:
+      description: Egress ID is required.
+      type: number
+  get:
+    description: Get information about an egress.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        body:
+          type: Egress
+          example:
+            value:
+              '@type': 'OperatorEgress'
+              concept: Gasto Cliente
+              created: 2017-04-14T14:00:00Z
+              id: 1
+              value: 200000.0
+              operator: !include ../../examples/user-simple-1.raml
+              typeConcept: ADVANCEMENT
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  put:
+    description: Update information about the specific egress.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    body:
+      type: Egress
+      example:
+        value:
+          '@type': 'OperatorEgress'
+          concept: Gasto Cliente
+          value: 200000.0
+          typeConcept: ADVANCEMENT
+          operatorId: 1
+    responses:
+      200:
+        body:
+          type: Egress
+          example:
+            value:
+              '@type': 'OperatorEgress'
+              concept: Gasto Cliente
+              created: 2017-04-14T14:00:00Z
+              id: 1
+              value: 200000.0
+              operator: !include ../../examples/user-simple-1.raml
+              typeConcept: ADVANCEMENT
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /closure:
+    description: | 
+      This resource contains the methods to manage the closure in 
+      the egresses.
+    put:
+      description: Updates the closure of an egress.
+      body:
+        type: Closure
+        example:
+          closuredType: PAID_OUT
+          observation: This is the observation
+      responses:
+        200:
+          body:
+            type: Closure
+            example:
+              closuredBy: !include ../../examples/user-simple-2.raml
+              closuredType: PAID_OUT
+              observation: This is the obserbation
+              date: 2017-04-14T14:01:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

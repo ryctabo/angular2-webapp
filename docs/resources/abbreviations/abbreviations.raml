@@ -1,0 +1,55 @@
+#%RAML 1.0
+type: collection
+get:
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            id: 1
+            shortText: CRA
+            content: "CRA {0} #{1}-{2}"
+          - # start item 2
+            id: 2
+            shortText: CLL
+            content: "CLL {0} #{1}-{2}"
+post:
+  body:
+    example:
+      shortText: CRA
+      content: "CRA {0} #{1}-{2}"
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            shortText: CRA
+            content: "CRA {0} #{1}-{2}"
+/st:
+  /{shortText}:
+    uriParameters: 
+      shortText: 
+        description: |
+          The short text of an abbreviation.
+        type: string
+        example: CLL
+    get:
+      description: |
+        Get an abbreviation from the given short text.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses: 
+        200:
+          body:
+            description: Request successfull.
+            type: Abbreviation
+            example:
+              id: 1
+              shortText: CRA
+              content: "CRA {0} #{1}-{2}"
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

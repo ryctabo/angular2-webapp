@@ -1,0 +1,58 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable, dateFilter ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: DepositPaymentRs[]
+          total: number
+        example:
+          items:
+            - # item 1
+              id: 1
+              payment: 50000
+              owner: !include ../../examples/user-simple-2.raml
+              receivedBy: !include ../../examples/user-simple-1.raml
+              created: 2017-04-01T08:00:00.000Z
+            - # item 2
+              id: 2
+              payment: 40000
+              owner: !include ../../examples/user-simple-1.raml
+              receivedBy: !include ../../examples/user-simple-2.raml
+              created: 2017-04-01T08:00:00.000Z
+          total: 10
+post:
+  body:
+    type: DepositPaymentRq
+    example:
+      ownerId: 1
+      payment: 20000
+  responses:
+    201:
+      headers:
+        Location:
+          example: http://api.arpia.com/v1/deposits/payments/1
+      body:
+        type: DepositPaymentRs
+/{id}:
+  get:
+      description: Get information about a deposit payment register.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: DepositPaymentRs
+            example:
+              id: 1
+              payment: 50000
+              owner: !include ../../examples/user-simple-1.raml
+              receivedBy: !include ../../examples/user-simple-2.raml
+              created: 2017-04-01T08:00:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

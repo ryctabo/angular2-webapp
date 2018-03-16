@@ -1,0 +1,8 @@
+#%RAML 1.0
+type: Egress
+discriminatorValue: 'MessengerEgress'
+properties:
+  typeConcept?:
+    enum: [ADVANCEMENT, FIGURATIVE]
+  messengerId?: number
+  messenger?: MessengerResponse

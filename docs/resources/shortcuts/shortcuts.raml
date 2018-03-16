@@ -1,0 +1,99 @@
+#%RAML 1.0
+type: collection
+get:
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            id: 1
+            key: Ctrl + A
+            command: openDialog.customer
+            when: domicile
+            description: This is a description.
+          - #start item 2
+            id: 2
+            key: Ctrl + 1
+            command: writeDireccion -d 1
+            when: domicile
+            description: This is a description.
+post:
+  body:
+    example:
+      key: Ctrl + A
+      command: openDialog.customer
+      when: domicile
+  responses:
+    201:
+      body:
+        example:
+          id: 1
+          key: Ctrl + A
+          command: openDialog.customer
+          when: domicile
+          description: This is a description.
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            key: Ctrl + A
+            command: openDialog.customer
+            when: domicile
+            description: This is a description.
+  put:
+    body:
+      example:
+        key: Ctrl + A
+        command: openDialog.customer
+        when: domicile
+        description: This is a description.
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            key: Ctrl + A
+            command: openDialog.customer
+            when: domicile
+            description: This is a description.
+  delete:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            key: Ctrl + A
+            command: openDialog.customer
+            when: domicile
+            description: This is a description.
+/key:
+  /{key}:
+    uriParameters: 
+      key:
+        description: |
+          The keyboard shorcut.
+        type: string
+        example: Ctrl+A
+    get:
+      description: |
+        Get a keyboard shortcut with the given key combination.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses: 
+        200:
+          body:
+            description: Request successfull.
+            type: Shortcut
+            example:
+              id: 1
+              key: Ctrl + A
+              command: openDialog.customer
+              when: domicile
+              description: This is a description.
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

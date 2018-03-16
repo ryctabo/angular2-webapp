@@ -1,0 +1,75 @@
+#%RAML 1.0
+title: Arpia REST
+version: v1
+protocols: [HTTP, HTTPS]
+baseUri: http://api-arpia-debug.azurewebsites.net/arpia-webapi/{version}
+mediaType: application/json
+securedBy: [jwt]
+securitySchemes:
+  jwt: !include security/jwt.raml
+documentation:
+  - title: Home
+    content: |
+      Welcome to the Arpia API documentation. The Arpia API allow
+      you to connect Arpia web application for that it can have
+      functionalities. The Arpia API is stable & secure because
+      use Json Web Token.
+  - title: Copyright
+    content: All development rights are reserved by Nativapps Inc.
+
+# Resource types
+resourceTypes:
+  collection: !include resourceTypes/collection.raml
+  member: !include resourceTypes/member.raml
+
+# Traits
+traits:
+  orderable: !include traits/orderable.raml
+  paged: !include traits/paged.raml
+  searchable: !include traits/searchable.raml
+  dateFilter: !include traits/date-filter.raml
+
+# Add types into main raml
+types: !include types/types.raml
+
+# Resources
+/abbreviations: !include resources/abbreviations/abbreviations.raml
+/accounts: !include resources/accounts/accounts.raml
+/actions: !include resources/actions/actions.raml
+/bases: !include resources/bases/bases.raml
+/birthdays: !include resources/birthdays/birthdays.raml
+/cash: !include resources/cash/cash.raml
+/chips: !include resources/chips/chips.raml
+/customers: !include resources/customers/customers.raml
+/cvs: !include resources/curriculumVitae/curriculum-vitae.raml
+/debts: !include resources/debts/debts.raml
+/deposits: !include resources/deposits/deposits.raml
+/discounts: !include resources/discounts/discounts.raml
+/dismissals: !include resources/dismissals/dismissals.raml
+/documents: !include resources/documents/documents.raml
+/domiciles: !include resources/domiciles/domiciles.raml
+/domicilesexe: !include resources/domicilesExecute/domicile-execute.raml
+/domicilereviews: !include resources/domicileReviews/domicile-reviews.raml
+/egresses: !include resources/egresses/egresses.raml
+/evaluations: !include resources/messengerEval/messenger-evals.raml
+/festives: !include resources/festives/festives.raml
+/goodstanding: !include resources/goodStanding/good-standing.raml
+/inventory: !include resources/inventory/inventory.raml
+/issues: !include resources/issues/issues.raml
+/marketingmessages: !include resources/marketingMessages/marketing-messages.raml
+/marketingobs: !include resources/marketingObs/marketing-obs.raml
+/messengers: !include resources/messengers/messengers.raml
+/mobiles: !include resources/mobiles/mobiles.raml
+/monitorings: !include resources/monitorings/monitorings.raml
+/neighborhoods: !include resources/neighborhood/neighborhood.raml
+/operations: !include resources/operations/operations.raml
+/penalties: !include resources/penalties/penalties.raml
+/people: !include resources/people/people.raml
+/points: !include resources/mapPoints/points.raml
+/qcr: !include resources/qcr/qcr.raml
+/settings: !include resources/settings/settings.raml
+/shiftplanning: !include resources/shiftplanning/shiftplanning.raml
+/shortcuts: !include resources/shortcuts/shortcuts.raml
+/specialdates: !include resources/specialDates/special-dates.raml
+/users: !include resources/users/users.raml
+/vehicles: !include resources/vehicles/vehicles.raml

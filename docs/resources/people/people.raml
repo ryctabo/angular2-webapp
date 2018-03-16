@@ -1,0 +1,124 @@
+#%RAML 1.0
+displayName: People
+description: |
+  This resource contains all the necessary operations for the management
+  of the people, among these operations we will have HTTP
+  methods to get all the elements, to get a single element, to add new
+  elements to the resource, to edit the existing elements and finally to
+  eliminate.
+get:
+  description: Get a list of all the people.
+  is: [paged, searchable]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Person[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              addresses:
+                - # start address 1
+                  id: 1
+                  neighborhood:
+                    id: 123
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+                - # start address 2
+                  id: 2
+                  neighborhood:
+                    id: 456
+                    name: Jhon Neighborhood
+                  tag: This is the tag
+                  residentialAddress: This is the address
+              emails:
+                - # start email 1
+                  confirmed: true
+                  address: jhondoe@arpia.com
+                - # start email 2
+                  confirmed: false
+                  address: jhondoe2@arpia.com
+              phones:
+                - # start phone 1
+                  confirmed: true
+                  tag: This is the tag
+                  number: '3018888666'
+                  phoneType: CELL_PHONE
+                - # start phone 2
+                  confirmed: false
+                  tag: This is the tag
+                  number: '6661232'
+                  phoneType: LANDLINE
+              identification: AH12
+              name: Jhon
+              lastName: Doe
+              gender: MALE
+              birthday: 1994-04-01T08:00:00.000Z
+          total: 1
+    400: !include ../../errors/error-400.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/{id}:
+  description: |
+    A specific person, a item of the
+    people list.
+  uriParameters:
+    id:
+      description: Person ID is required.
+      type: number
+  get:
+    description: Get information about a person.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: Person
+          example:
+            id: 1
+            addresses:
+              - # start address 1
+                id: 1
+                neighborhood:
+                  id: 123
+                  name: Jhon Neighborhood
+                tag: This is the tag
+                residentialAddress: This is the address
+              - # start address 2
+                id: 2
+                neighborhood:
+                  id: 456
+                  name: Jhon Neighborhood
+                tag: This is the tag
+                residentialAddress: This is the address
+            emails:
+              - # start email 1
+                confirmed: true
+                address: jhondoe@arpia.com
+              - # start email 2
+                confirmed: false
+                address: jhondoe2@arpia.com
+            phones:
+              - # start phone 1
+                confirmed: true
+                tag: This is the tag
+                number: '3018888666'
+                phoneType: CELL_PHONE
+              - # start phone 2
+                confirmed: false
+                tag: This is the tag
+                number: '6661232'
+                phoneType: LANDLINE
+            identification: AH12
+            name: Jhon
+            lastName: Doe
+            gender: MALE
+            birthday: 1994-04-01T08:00:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

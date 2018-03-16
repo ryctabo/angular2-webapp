@@ -1,0 +1,7 @@
+#%RAML 1.0
+properties:
+  id?: number
+  firstPayment: date-only
+  numberOfFees: integer
+  period:
+    enum: [DAILY, WEEKLY, BIWEEKLY, MONTHLY, QUARTERLY, BIANNUAL, ANNUAL]

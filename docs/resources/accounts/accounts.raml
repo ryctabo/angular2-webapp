@@ -1,0 +1,69 @@
+#%RAML 1.0
+displayName: Accounts
+description: |
+  This resource contains all the methods necessary to manage a
+  user account within the Arpia platform.
+get:
+  description: |
+    Get a user information from the given username.
+  queryParameters:
+    q:
+      description: The username value
+      type: string
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  securedBy: null
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: UserSimple
+        example: !include ../../examples/user-simple-1.raml
+    400: !include ../../errors/error-400.raml
+    401: !include ../../errors/error-401.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/authenticate:
+  post:
+    description: |
+      This endpoint is used to log in with a username and
+      password.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    securedBy: null
+    body:
+      description: The login data is required.
+      type: LoginData
+      example:
+        username: admin
+        password: admin
+    responses: 
+      200:
+        description: Successfull request.
+        body:
+          type: TokenData
+          example:
+            token: !include ../../examples/token.txt
+            type: JWT
+      400: !include ../../errors/error-400.raml
+      401: !include ../../errors/error-401.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+/refresh:
+  post:
+    description: |
+      This endpoint serves to update a token through an old token.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses: 
+      200:
+        description: Successfull request.
+        body:
+          type: TokenData
+          example:
+            token: !include ../../examples/token.txt
+            type: JWT
+      400: !include ../../errors/error-400.raml
+      401: !include ../../errors/error-401.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

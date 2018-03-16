@@ -1,0 +1,150 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ paged, dateFilter ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: CashTallyingResponse[]
+          total: integer
+        example:
+          items:
+            - # item 1
+              id: 1
+              user: !include ../../examples/user-simple-1.raml  
+              registerDate: 2017-04-02T08:00:00.000Z
+              cashRegisters:
+                - count: 10
+                  value: 500
+                  cashType: COIN
+                  total: 5000
+                - count: 10
+                  value: 2000
+                  cashType: PAPER
+                  total: 20000
+              settlement:
+                produced: 45000
+                credits: 0
+                advances: 10000
+                expenses: 10000
+                total: 25000
+              observations: closed without problems
+              totalPapers: 20000
+              totalCoins: 5000
+              totalCash: 25000
+              imbalance: 0
+            - # item 2
+              id: 2
+              user: !include ../../examples/user-simple-2.raml  
+              registerDate: 2017-04-01T08:00:00.000Z
+              cashRegisters:
+                - count: 10
+                  value: 200
+                  cashType: COIN
+                  total: 2000
+                - count: 10
+                  value: 10000
+                  cashType: PAPER
+                  total: 100000
+              settlement:
+                produced: 100000
+                credits: 0
+                advances: 10000
+                expenses: 10000
+                total: 80000
+              observations: closed without problems
+              totalPapers: 100000
+              totalCoins: 2000
+              totalCash: 102000
+              imbalance: 22000
+          total: 10
+post:
+  body:
+    type: CashTallying
+    example:
+      cashRegisters: 
+        - count: 10
+          value: 500
+          cashType: COIN
+        - count: 10
+          value: 2000
+          cashType: PAPER
+      settlement:
+        produced: 45000
+        credits: 0
+        advances: 10000
+        expenses: 10000
+      observations: closed without problems
+  responses:
+    201:
+      headers:
+        Location: 
+          description: |
+            Location where you can get the information of the created
+            cash tallying.
+          example: http://api.arpia.com/v1/cash/tallying/1
+      body:
+        type: CashTallyingResponse
+        example:
+          id: 1
+          user: !include ../../examples/user-simple-1.raml  
+          registerDate: 2017-04-02T08:00:00.000Z
+          cashRegisters:
+            - count: 10
+              value: 500
+              cashType: COIN
+              total: 5000
+            - count: 10
+              value: 2000
+              cashType: PAPER
+              total: 20000
+          settlement:
+            produced: 45000
+            credits: 0
+            advances: 10000
+            expenses: 10000
+            total: 25000
+          observations: closed without problems
+          totalPapers: 20000
+          totalCoins: 5000
+          totalCash: 25000
+          imbalance: 0
+/{id}:
+  get:
+    description: Get information about a cash tallying register.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: CashTallyingResponse
+          example:
+            id: 1
+            user: !include ../../examples/user-simple-2.raml  
+            registerDate: 2017-04-02T08:00:00.000Z
+            cashRegisters:
+              - count: 10
+                value: 500
+                cashType: COIN
+                total: 5000
+              - count: 10
+                value: 2000
+                cashType: PAPER
+                total: 20000
+            settlement:
+              produced: 45000
+              credits: 0
+              advances: 10000
+              expenses: 10000
+              total: 25000
+            observations: closed without problems
+            totalPapers: 20000
+            totalCoins: 5000
+            totalCash: 25000
+            imbalance: 0
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

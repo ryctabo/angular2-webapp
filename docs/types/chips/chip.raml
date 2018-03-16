@@ -1,0 +1,8 @@
+#%RAML 1.0
+properties:
+  id?: number
+  messenger: MessengerSimple | number
+  type:
+    enum: [ LOAN, RETURN ]
+  items: ChipItem[]
+  created?: datetime

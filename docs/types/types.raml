@@ -1,0 +1,257 @@
+#%RAML 1.0
+# error message data model
+ErrorMessage: !include error-message.raml
+
+# model to operation resource
+Operation: !include operations/operation.raml
+OperationRequest:
+  type: Operation
+  properties:
+    administrator:
+    password:
+    email:
+
+# model to user resource
+User: !include users/user.raml
+UserRequest:
+  type: User
+  properties:
+    password:
+UserSimple: !include users/user-simple.raml
+
+# model to abbreviations resource
+Abbreviation: !include abbreviations/abbreviations.raml
+
+# model to accounts resource
+TokenData: !include accounts/token-data.raml
+LoginData: !include accounts/login-data.raml
+
+# model to actions resource
+Action: !include actions/actions.raml
+
+# model to base resource
+BaseRequest: !include bases/bases-request.raml
+BaseResponse: !include bases/bases-response.raml
+BaseRecord: !include bases/bases-record.raml
+
+# model to customers resource
+Customer: !include customers/customers.raml
+
+# model to cash resource
+Cash: !include cashs/cash.raml
+CashRequest:
+  type: Cash
+  properties:
+    operation: number
+CashResponse: !include cashs/cash-response.raml
+
+# model to discount resource
+Discount: !include discount/discount.raml
+DiscountResponse: !include discount/discount-response.raml
+DiscountChangeLog: !include discount/change-log.raml
+
+# model to curriculum vitae resource
+Reference: !include curriculumVitae/references.raml
+CurriculumVitae: !include curriculumVitae/curriculum-vitae.raml
+
+# model to dismissal history of messenger
+Dismissal: !include dismissals/dismissal.raml
+
+# model to monitoring resource
+Monitoring: !include monitoring/monitoring.raml
+MonitoringResponse: !include monitoring/monitoring-response.raml
+
+# model to documents
+Document: !include documents/document.raml
+DocumentLog: !include documents/change-log.raml
+
+# model to deposits resource
+Deposit: !include deposits/deposit.raml
+DepositPayment:
+  properties:
+    payment: number
+DepositPaymentRq:
+  type: DepositPayment
+  properties:
+    ownerId: number
+DepositPaymentRs: !include deposits/deposit-payment-rs.raml
+
+# model to messenger eval resource
+Evaluation: !include messengers/evaluations/evaluation.raml
+
+# model to festive days resource
+Festive: !include festive/festive.raml
+
+# model to special dates resource
+SpecialDate: !include specialDates/special-date.raml
+
+# model to marketing messages resource
+MarketingMessage: !include marketing/messages/messages.raml
+MarketingMessageResponse: !include marketing/messages/messages-response.raml
+MarketingMessageRequest: !include marketing/messages/messages-request.raml
+
+# model to marketing observation resource
+MarketingObs: !include marketing/observations/observations.raml
+MarketingObsResponse: !include marketing/observations/observations-response.raml
+MarketingObsRequest: !include marketing/observations/observations-request.raml
+
+# model to domiciles resource
+Domicile: !include domiciles/domicile.raml
+Location: !include domiciles/location.raml
+Rating: !include domiciles/rating.raml
+Requirement: !include domiciles/requirement.raml
+Repeat: !include domiciles/repeat.raml
+DailyRepeat: !include domiciles/daily-repeat.raml
+WeeklyRepeat: !include domiciles/weekly-repeat.raml
+MonthlyRepeat: !include domiciles/monthly-repeat.raml
+YearlyRepeat: !include domiciles/yearly-repeat.raml
+
+# model to domicile execute resource
+DomicileExecute: !include domicilesExecute/domicile-execute.raml
+Assignment: !include domicilesExecute/assignment.raml
+AssignmentResponse:
+  properties:
+    index: integer
+    messenger: MessengerSimple
+    registerDate: datetime
+AssignmentRequest:
+  properties:
+    messengerId: number
+
+# model to domicile review
+DomicileReview: !include domicileReview/domicile-review.raml
+DomicileReviewResponse: !include domicileReview/domicile-review-response.raml
+
+# model to person resource
+Person: !include person/person.raml
+Address: !include contactInfo/address.raml
+Email: !include contactInfo/email.raml
+Phone: !include contactInfo/phone.raml
+
+# model to inventory resource
+Inventory: !include inventory/inventory.raml
+Stock: !include inventory/stock.raml
+MessengerInfo: !include inventory/messenger-info.raml
+ChipInfo: !include inventory/chip-info.raml
+
+# model to chip resource
+Chip: !include chips/chip.raml
+ChipItem: !include chips/chip-item.raml
+Element:
+  properties:
+    id: number
+    name:
+
+# model to neighboorhood resource
+NeighborhoodRequest: !include neighborhood/neighborhood-request.raml
+NeighborhoodResponse: !include neighborhood/neighborhood-response.raml
+
+# model to cash tallying
+CashRegister: !include cashTallying/cash-register.raml
+CashRegisterResponse:
+  type: CashRegister
+  properties:
+    total: number
+Settlement: !include cashTallying/settlement.raml
+SettlementResponse:
+  type: Settlement
+  properties:
+    total: number
+CashTallying: !include cashTallying/cash-tallying.raml
+CashTallyingResponse: !include cashTallying/cash-tallying-response.raml
+
+# model to penaltie resource
+PenaltieResponse: !include penalties/penaltie-response.raml
+PenaltieRequest:  !include penalties/penaltie-request.raml
+
+# model to shortcut resource
+Shortcut: !include shortcuts/shortcut.raml
+
+# model to system configuration resource
+Denomination: !include denominations/denomination.raml
+Question: !include systemconfigurations/Question.raml
+SystemConfig: !include systemconfigurations/systemconfig.raml
+
+# model to qcr resource
+QCRData: !include qcr/qcr-data.raml
+Inconvenient:
+  properties:
+    inconvenient:
+Counterpart:
+  properties:
+    counterpartVersion:
+Solution:
+  properties:
+    evaluation?:
+    solution:
+
+# model to messengers
+Messenger: !include messengers/messenger.raml
+MessengerResponse: !include messengers/messenger-response.raml
+MessengerRequest: !include messengers/messenger-request.raml
+MessengerSimple: !include messengers/messenger-simple.raml
+
+# model to vehicles
+Vehicle: !include vehicles/vehicle.raml
+
+# model to good standing
+GoodStandingRequest: !include goodStanding/good-standing-request.raml
+GoodStandingReqApprove: !include goodStanding/good-standing-req-approve.raml
+GoodStandingReqDeny: !include goodStanding/good-standing-req-deny.raml
+GoodStandingResponse: !include goodStanding/good-standing-response.raml
+
+# model to issues
+Issue: !include issues/issue.raml
+
+# model to number mobiles
+Mobile: !include mobiles/mobiles.raml
+MobileAssignment: !include mobiles/asignment.raml
+MobileCreator: !include mobiles/create-mobiles.raml
+
+# model to Shiftplanning
+Shiftplanning: !include shiftplanning/shiftplanning.raml
+ShiftplanningResponse: !include shiftplanning/shiftplanning-response.raml
+
+Shift: !include shift/shift.raml
+ShiftResponse: !include shift/shift-response.raml
+
+ShiftAssignment:
+  properties:
+    messengerId: integer
+
+ShiftAssignmentResponse:
+  properties:
+    messenger: MessengerSimple
+    shift: ShiftResponse
+
+ShiftCheck: !include shiftCheck/shift-check.raml
+ShiftCheckRequest: !include shiftCheck/shift-check-request.raml
+ShiftCheckResponse: !include shiftCheck/shift-check-response.raml
+
+ShiftCheckKey:
+  properties:
+    key:
+
+ShiftCheckKeyResponse: !include shiftCheck/shift-check-key-response.raml
+
+# model to map point
+Point: !include mapPoints/map-point.raml
+Schedule: !include mapPoints/schedule.raml
+Pricing: !include mapPoints/pricing.raml
+
+# model to egress resource
+Closure: !include egresses/closure.raml
+Egress: !include egresses/egress.raml
+CustomerEgress: !include egresses/customer-egress.raml
+ManagementEgress: !include egresses/management-egress.raml
+MessengerEgress: !include egresses/messenger-egress.raml
+OperatorEgress: !include egresses/operator-egress.raml
+
+# model to debt resource
+Debt: !include debts/debt.raml
+DebtResponse: !include debts/debt-response.raml
+DebtRequest: !include debts/debt-request.raml
+FeeInfo: !include debts/fee-info.raml
+
+# model to payment resource
+Payment: !include payments/payment.raml

@@ -1,0 +1,10 @@
+#%RAML 1.0
+type: collection
+get:
+  queryParameters:
+    messengerId?:
+      description: Provide if you need get list filtered by messenger ID.
+      type: number
+      example: 15
+/{id}:
+  type: member

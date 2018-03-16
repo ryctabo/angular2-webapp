@@ -1,0 +1,41 @@
+#%RAML 1.0
+displayName: Birthdays
+description: |
+  This resource contains the operation to get all the customers
+  that are particulars and that are celebrating their birthday soonly.
+get:
+  description: Get a list of all particulars with a soon birthday.
+  is: [ paged ]
+  queryParameters:
+    to:
+      description: Specify the date wanted to filter the birthdays.
+      type: string
+      example: TODAY
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: object
+        properties:
+          items: Customer[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              displayName: Ali Connors
+              identification: '123456789'
+              type: PARTICULAR
+              banned: false
+            - # start item 2
+              id: 2
+              displayName: Nativapps Inc
+              identification: '987654321'
+              type: ESTABLISHMENT
+              banned: true
+              observations: This is a observations.
+          total: 2
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml

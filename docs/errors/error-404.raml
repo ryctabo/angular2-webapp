@@ -1,0 +1,16 @@
+#%RAML 1.0
+description: |
+  The origin server did not find a current representation for the target
+  resource or is not willing to disclose that one exists.<br><br>
+  Resource not found, specifically occurs when a route is poorly specified,
+  make sure that the resource ID are needing is correct.
+body:
+  type: ErrorMessage
+  example:
+    documentation: http://api.arpia.com
+    statusCode: 404
+    messages:
+      - # start item 1
+        message: This is a first error message.
+      - # start item 2
+        message: This is a second error message.

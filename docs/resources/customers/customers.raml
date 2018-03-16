@@ -1,0 +1,58 @@
+#%RAML 1.0
+displayName: Customers
+description: |
+  This resource contains all the necessary operations for the management
+  of the customers, among these operations we will have HTTP methods to
+  get all the elements, to get a single element, to add new elements to
+  the resource, to edit the existing elements and finally to eliminate.
+get:
+  description: Get a list of all customers.
+  is: [ searchable, paged ]
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: object
+        properties:
+          items: Customer[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              displayName: Ali Connors
+              identification: '123456789'
+              type: PARTICULAR
+              banned: false
+            - # start item 2
+              id: 2
+              observations: This is a observations.
+              displayName: Summer BBQ
+              identification: '987654321'
+              type: ESTABLISHMENT
+              banned: false
+          total: 150
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/{id}:
+  description: |
+    A specific customer, a item of the customers list.
+  uriParameters:
+    id:
+      description: Customer ID is required.
+      type: number
+  get:
+    description: Get information about a customer.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: Customer
+          example: !include ../../examples/customer-simple-1.raml
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

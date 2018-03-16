@@ -1,0 +1,120 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ paged ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: ShiftplanningResponse[]
+          total: integer
+        example:
+          items:
+            - # item 1
+              id: 1
+              operation: !include ../../examples/operation-411.raml
+              initialDate: 2017-05-31T05:30:00.000Z
+              finalDate: 2017-06-01T05:30:00.000Z
+              shifts:
+                - index: 1
+                  shiftplanningId: 1
+                  startTime: 2017-05-31T05:30:00.000Z
+                  endTime: 2017-05-31T10:00:00.000Z
+                  count: 1
+                - index: 2
+                  shiftplanningId: 1
+                  startTime: 2017-05-31T10:00:00.000Z
+                  endTime: 2017-05-31T14:00:00.000Z
+                  count: 2
+            - # item 2
+              id: 2
+              operation: !include ../../examples/operation-357.raml
+              initialDate: 2017-06-01T05:30:00.000Z
+              finalDate: 2017-06-02T05:30:00.000Z
+              shifts:
+                - index: 1
+                  shiftplanningId: 2
+                  startTime: 2017-05-31T05:30:00.000Z
+                  endTime: 2017-05-31T10:00:00.000Z
+                  count: 1
+                - index: 2
+                  shiftplanningId: 2
+                  startTime: 2017-05-31T10:00:00.000Z
+                  endTime: 2017-05-31T14:00:00.000Z
+                  count: 2
+          total: 10
+post:
+  body:
+    example:
+      operationId: 1
+      initialDate: 2017-05-31T05:30:00.000Z
+      finalDate: 2017-06-01T05:30:00.000Z
+      shifts:
+        - startTime: 2017-05-31T05:30:00.000Z
+          endTime: 2017-05-31T10:00:00.000Z
+          count: 1
+        - startTime: 2017-05-31T10:00:00.000Z
+          endTime: 2017-05-31T14:00:00.000Z
+          count: 2
+/{id}:
+  description: A specific shiftplanning, a item of the shiftplanning list.
+  uriParameters:
+    id:
+      description: shiftplanning ID is required.
+      type: number
+  get:
+    description: Get information about a shiftplanning.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        body:
+          type: ShiftplanningResponse
+          example:
+            id: 2
+            operation: !include ../../examples/operation-411.raml
+            initialDate: 2017-06-01T05:30:00.000Z
+            finalDate: 2017-06-02T05:30:00.000Z
+            shifts:
+              - index: 1
+                shiftplanningId: 2
+                startTime: 2017-05-31T05:30:00.000Z
+                endTime: 2017-05-31T10:00:00.000Z
+                count: 1
+              - index: 2
+                shiftplanningId: 2
+                startTime: 2017-05-31T10:00:00.000Z
+                endTime: 2017-05-31T14:00:00.000Z
+                count: 2
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  delete:
+    description: Remove a specific shiftplanning.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        body:
+          type: ShiftplanningResponse:
+          example:
+            id: 2
+            operation: !include ../../examples/operation-411.raml
+            initialDate: 2017-06-01T05:30:00.000Z
+            finalDate: 2017-06-02T05:30:00.000Z
+            shifts:
+              - index: 1
+                shiftplanningId: 2
+                startTime: 2017-05-31T05:30:00.000Z
+                endTime: 2017-05-31T10:00:00.000Z
+                count: 1
+              - index: 2
+                shiftplanningId: 2
+                startTime: 2017-05-31T10:00:00.000Z
+                endTime: 2017-05-31T14:00:00.000Z
+                count: 2
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /shifts: !include shifts.raml

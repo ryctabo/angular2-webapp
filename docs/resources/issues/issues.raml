@@ -1,0 +1,37 @@
+#%RAML 1.0
+type: collection
+get: 
+  is: [ paged ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Issue[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              name: Full Name 1
+              shortName: FN1
+            - # start item 2
+              id: 2
+              name: Full Name 2
+              shortName: FN2
+          total: 10
+post:
+  body:
+    example:
+      name: Full Name 1
+      shortName: FN1
+/{id}: 
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            name: Full Name 1
+            shortName: FN1

@@ -1,0 +1,13 @@
+#%RAML 1.0
+properties:
+  id?: number
+  ownership:
+    enum: [ INDIVIDUAL, BORROWED ]
+  vehicleCondition:
+    enum: [ GOOD, REGULAR, BAD ]
+  trademark:
+  model:
+  color?:
+  licensePlate:
+  tecnomecanicaExpiration: date-only
+  soatExpiration: date-only

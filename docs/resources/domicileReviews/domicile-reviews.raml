@@ -1,0 +1,91 @@
+#%RAML 1.0
+type: collection
+displayName: Domicile Reviews
+get:
+  is: [ paged ]
+  queryParameters:
+    domicileExe?:
+      type: number
+      description: Domicile Execute ID to filter the request.
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: DomicileReviewResponse[]
+          total: integer
+        example:
+          items:
+            - # item 1
+              id: 1
+              user: !include ../../examples/user-simple-1.raml
+              observations: The domicile was executed without problems
+              domicileExecuteId: 1
+              registerDate: 2017-04-01T08:00:00.000Z
+            - # item 2
+              id: 2
+              user: !include ../../examples/user-simple-2.raml
+              observations: The domicile was executed without problems
+              domicileExecuteId: 2
+              registerDate: 2017-04-01T08:00:00.000Z
+          total: 10
+post:
+  body:
+    type: DomicileReview 
+    example:
+      observations: The domicile was executed without problems
+      domicileExecuteId: 1
+  responses:
+   201:
+    body:
+      type: DomicileReviewResponse
+/{id}:
+  description: |
+    A specific domicile review, a item of the domicile review list.
+  uriParameters:
+    id:
+      description: DomicileReview ID is required.
+      type: number
+  get:
+    description: Get information about a domicile review.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: DomicileReviewResponse
+          example:
+            id: 1
+            user: !include ../../examples/user-simple-1.raml
+            observations: The domicile was executed without problems
+            domicileExecuteId: 1
+            registerDate: 2017-04-01T08:00:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  put:
+    description: |
+      Update information about the specific domicile review.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    body: 
+      description: The domicile review data is required to update.
+      type: DomicileReview
+      example:
+        observations: The domicile was executed without problems
+        domicileExecuteId: 1
+    responses: 
+      200:
+        description: It has updated a domicile review.
+        body:
+          type: DomicileReviewResponse
+          example:
+            id: 1
+            user: !include ../../examples/user-simple-2.raml
+            observations: The domicile was executed without problems
+            domicileExecuteId: 1
+            registerDate: 2017-04-01T08:00:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

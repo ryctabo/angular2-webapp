@@ -1,0 +1,20 @@
+#%RAML 1.0
+properties:
+  id: number
+  baseDelivery: integer
+  baseReturn: integer
+  amount: number
+  registerDate: datetime
+  messenger:
+    type: object
+    properties:
+      identification:
+      name:
+      lastName:
+      birthday: datetime
+  operation:
+    type: object
+    properties:
+      id: number
+      name:
+  records: BaseRecord[]

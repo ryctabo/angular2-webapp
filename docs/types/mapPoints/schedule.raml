@@ -1,0 +1,8 @@
+#%RAML 1.0
+properties:
+  weekday:
+    enum: [ MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY ]
+  opening: time-only
+  closing: time-only
+  breakOpening?: time-only
+  breakClosing?: time-only

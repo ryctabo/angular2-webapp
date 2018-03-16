@@ -1,0 +1,79 @@
+#%RAML 1.0
+displayName: Shift Assignments
+description: |
+  This resource contains all the necessary operations for the management
+  of the shift assignments.
+get:
+  description: Get a list of all shift assignments.
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: ShiftAssignmentResponse[]
+        example:
+          - # item 1
+            messenger: !include ../../examples/messenger-simple.raml
+            shift:
+              index: 1
+              shiftplanningId: 1
+              startTime: 2017-08-11T12:00:00.000Z
+              endTime: 2017-08-11T16:00:00.000Z
+              count: 2
+          - # item 2
+            messenger: !include ../../examples/messenger-simple.raml
+            shift:
+              index: 2
+              shiftplanningId: 1
+              startTime: 2017-08-11T08:00:00.000Z
+              endTime: 2017-08-11T12:00:00.000Z
+              count: 3
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+post:
+  description: Allows to assign a shift to a messenger
+  headers: 
+    Accept-Language: !include ../../accept-language.raml
+  body:
+    type: ShiftAssignment
+    example:
+      messengerId: 1
+  responses: 
+    200:
+      body:
+        type: ShiftAssignmentResponse
+        example:
+          messenger: !include ../../examples/messenger-simple.raml
+          shift:
+            index: 2
+            shiftplanningId: 1
+            startTime: 2017-08-11T12:00:00.000Z
+            endTime: 2017-08-11T16:00:00.000Z
+            count: 2
+    400: !include ../../errors/error-400.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/{messengerId}:
+  uriParameters: 
+      messengerId: 
+        description: messenger ID that belongs the assignment
+  delete:
+    description: Delete a shift assignment that belongs a messenger
+    headers: 
+      Accept-Language: !include ../../accept-language.raml
+    responses: 
+      200:
+        body:
+          type: ShiftAssignmentResponse
+          example:
+            messenger: !include ../../examples/messenger-simple.raml
+            shift:
+              index: 2
+              shiftplanningId: 1
+              startTime: 2017-08-11T12:00:00.000Z
+              endTime: 2017-08-11T16:00:00.000Z
+              count: 2
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

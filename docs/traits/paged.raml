@@ -1,0 +1,16 @@
+#%RAML 1.0
+usage: Apply this to any method that needs to be pagination.
+description: Some requests need to be paginated.
+queryParameters:
+  start?:
+    description: Specify the index of first element to get
+    type: number
+    minimum: 0
+    default: 0
+    example: 10
+  size?:
+    description: Specify the amount of items that will be retrieved per request
+    type: number
+    minimum: 10
+    maximum: 200
+    example: 150

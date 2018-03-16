@@ -1,0 +1,15 @@
+#%RAML 1.0
+description: |
+  The server cannot or will not process the request due to something
+  that is perceived to be a client error (e.g., malformed request
+  syntax, invalid request message framing, or deceptive request routing).
+body:
+  type: ErrorMessage
+  example:
+    documentation: http://api.arpia.com
+    statusCode: 400
+    messages:
+      - # start item 1
+        message: This is a first error message.
+      - # start item 2
+        message: This is a second error message.

@@ -1,0 +1,15 @@
+#%RAML 1.0
+properties:
+  id?: number
+  assignments?: Assignment[]
+  price: number
+  messengerGain: number
+  discount?: number
+  status?:
+    enum: [ WAITING, DISPATCHED, FINALIZED ]
+  automatic: boolean
+  startDate?: datetime
+  finishDate?: datetime
+  cancelDate?: datetime
+  cancelReason?:
+  domicile: number | Domicile

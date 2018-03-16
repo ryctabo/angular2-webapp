@@ -1,0 +1,70 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Document[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              name: 'Document #1'
+              description: This is a description
+              expirationDate: 2017-05-15
+              url: http://static.arpia.com/pdf/document_123.pdf
+              log:
+                - # log item 1
+                  index: 1
+                  url: http://static.arpia.com/pdf/document_123.pdf
+                  registerDate: 2017-04-20T10:00:00.000Z
+              visible: true
+            - # start item 2
+              id: 2
+              name: 'Document #2'
+              url: http://static.arpia.com/pdf/document_789.pdf
+              log: 
+                - # log item 1
+                  index: 1
+                  url: http://static.arpia.com/pdf/document_456.pdf
+                  registerDate: 2017-04-20T10:00:00.000Z
+                - # log item 2
+                  index: 2
+                  url: http://static.arpia.com/pdf/document_789.pdf
+                  registerDate: 2017-04-26T12:00:00.000Z
+              visible: false
+          total: 10
+post:
+  body:
+    example:
+      name: My Document
+      description: This is a description.
+      url: http://static.arpia.com/pdf/document_123.pdf
+      expirationDate: 2018-05-01
+      visible: true
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body: 
+          example:
+            id: 1
+            name: My Document
+            description: This is a description.
+            expirationDate: 2018-05-01
+            url: http://static.arpia.com/pdf/document_789.pdf
+            log: 
+              - # log item 1
+                index: 1
+                url: http://static.arpia.com/pdf/document_456.pdf
+                registerDate: 2017-04-20T10:00:00.000Z
+              - # log item 2
+                index: 2
+                url: http://static.arpia.com/pdf/document_789.pdf
+                registerDate: 2017-04-26T12:00:00.000Z
+            visible: false

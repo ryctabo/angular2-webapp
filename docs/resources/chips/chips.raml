@@ -1,0 +1,124 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ paged ]
+  queryParameters:
+    messenger?:
+      description: |
+        If you need to filter the list from a messenger you can 
+        provide this parameter.
+      type: number
+      example: 1265
+    type?:
+      description: |
+        If you need to filter the list from the loans and returns, 
+        you can provide this parameter.
+      enum: [ LOAN, RETURN ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Chip[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              messenger: !include ../../examples/messenger-simple.raml
+              type: LOAN
+              items:
+                - # start item 1
+                  element:
+                    id: 1
+                    name: Item 1
+                  count: 2
+                - # start item 2
+                  element:
+                    id: 2
+                    name: Item 2
+                  count: 3
+              created: 2017-06-28T12:30:00.000Z
+            - # start item 1
+              id: 2
+              messenger: !include ../../examples/messenger-simple.raml
+              type: RETURN
+              items:
+                - # start item 1
+                  element:
+                    id: 1
+                    name: Item 1
+                  count: 2
+                - # start item 2
+                  element:
+                    id: 2
+                    name: Item 2
+                  count: 1
+              created: 2017-06-28T12:30:00.000Z
+          total: 10
+post:
+  body:
+    example:
+      messenger: 1
+      type: LOAN
+      items:
+        - # start item 1
+          element: 1
+          count: 2
+        - # start item 2
+          element: 2
+          count: 3
+  responses:
+    200:
+      body:
+        example:
+          id: 2
+          messenger: !include ../../examples/messenger-simple.raml
+          type: RETURN
+          items:
+            - # start item 1
+              element:
+                id: 1
+                name: Item 1
+              count: 2
+            - # start item 2
+              element:
+                id: 2
+                name: Item 2
+              count: 1
+          created: 2017-06-28T12:30:00.000Z
+/{id}:
+  description: |
+    A specific chip, a item of the chips list.
+  uriParameters:
+    id:
+      description: Chip ID is required.
+      type: number
+  get:
+    description: Get information about a Chip.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: Chip
+          example:
+            id: 2
+            messenger: !include ../../examples/messenger-simple.raml
+            type: RETURN
+            items:
+              - # start item 1
+                element:
+                  id: 1
+                  name: Item 1
+                count: 2
+              - # start item 2
+                element:
+                  id: 2
+                  name: Item 2
+                count: 1
+            created: 2017-06-28T12:30:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

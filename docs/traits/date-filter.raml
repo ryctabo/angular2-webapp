@@ -1,0 +1,12 @@
+#%RAML 1.0
+usage: Apply this to any method that can be filtered by date.
+description: Some requests need to be filtered by dates.
+queryParameters:
+  from?:
+    description: Specifies the start date of the filter.
+    type: date-only
+    example: 2015-07-30
+  to?:
+    description: Specifies the end date of the filter.
+    type: date-only
+    example: 2017-12-31

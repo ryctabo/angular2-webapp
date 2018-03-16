@@ -1,0 +1,38 @@
+#%RAML 1.0
+type: collection
+get: 
+  is: [ paged, orderable ]
+  queryParameters:
+    operation:
+      description: Provide if you need get list filtered by operation.
+      type: number
+      example: 1
+    available?:
+      description: true, if you need get list filtered by available.
+      type: boolean
+      example: false
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            index: 1
+            createdDate: 2017-05-05T08:00:00.000Z
+          - # start item 2
+            index: 2
+            messenger: !include ../../examples/messenger-simple.raml
+            createdDate: 2017-05-05T08:00:00.000Z
+            updatedDate: 2017-05-06T12:30:00.000Z
+          - # start item 3
+            index: 3
+            createdDate: 2017-05-05T08:00:00.000Z
+post:
+  body:
+    type: MobileCreator
+    example:
+      quantity: 50
+      operationId: 1
+  responses:
+    201:
+      body:
+        type: null

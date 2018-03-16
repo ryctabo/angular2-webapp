@@ -1,0 +1,69 @@
+#%RAML 1.0
+type: collection
+description: |
+  This resource contains all the necessary operations for the management
+  of the payments, among these operations we will have HTTP
+  methods to get all the elements, to get a single element or to add new
+  elements to the resource.
+get:
+  is: [ paged, orderable, dateFilter ]
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: object
+        properties:
+          items: Payment[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              index: 1
+              payment: 100
+              authorizedBy: !include ../../../examples/user-simple-1.raml
+              date: 2018-04-17T11:20:00.000Z
+              - # start item 2
+              index: 2
+              payment: 200
+              authorizedBy: !include ../../../examples/user-simple-2.raml
+              date: 2018-04-17T11:20:00.000Z
+          total: 2
+post:
+  description: Add a new payment.
+  body:
+    type: Payment
+    example:
+      payment: 100
+      operationId: 1
+  responses:
+    201:
+      body:
+        type: Payment
+        example:
+          index: 1
+          payment: 100
+          authorizedBy: !include ../../../examples/user-simple-1.raml
+          date: 2018-04-17T11:20:00.000Z
+/{index}:
+  description: A specific payment, a item of the payment list.
+  uriParameters:
+    index:
+      description: payment index is required.
+      type: number
+  get:
+    description: Get information about a payment.
+    headers:
+      Accept-Language?: !include ../../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: Payment
+          example:
+            index: 1
+            payment: 100
+            authorizedBy: !include ../../../examples/user-simple-1.raml
+            date: 2018-04-17T11:20:00.000Z
+      400: !include ../../../errors/error-400.raml
+      404: !include ../../../errors/error-404.raml
+      500: !include ../../../errors/error-500.raml

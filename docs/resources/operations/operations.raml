@@ -1,0 +1,56 @@
+#%RAML 1.0
+type: collection
+get:
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            id: 1
+            name: Operation 411
+            alias: '411'
+            adminUser:
+              id: 1
+              username: admin
+              email: admin@mail.com
+              displayName: Administrador
+            description: This is a description
+            imageUrl: http://static.arpia.com/imgs/img_001.jpg
+          - # start item 1
+            id: 2
+            name: Operation 357
+            alias: '357'
+            adminUser:
+              id: 2
+              username: admin2
+              email: admin2@mail.com
+              displayName: Administrador 2
+            description: This is a description
+            imageUrl: http://static.arpia.com/imgs/img_002.jpg
+post:
+  body:
+    type: OperationRequest
+    example:
+      name: Operation 411
+      alias: '411'
+      administrator: Juan Pablo
+      password: '123456'
+      email: juanpablo@mail.com
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          example:
+            id: 1
+            name: Operation 411
+            alias: '411'
+            adminUser:
+              id: 1
+              username: admin
+              email: admin@mail.com
+              displayName: Administrador
+            description: This is a description
+            imageUrl: http://static.arpia.com/imgs/img_001.jpg
+  /mobiles: !include mobiles.raml

@@ -1,0 +1,68 @@
+#%RAML 1.0
+type: collection
+description: |
+  This resource contains all the necessary operations for the management
+  of the cash, among these operations we will have HTTP methods to get 
+  all the elements, to get a single element and to add new elements to 
+  the resource.
+get:
+  is: [ paged ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: CashResponse[]
+          total: number
+        example:
+          items:
+            - # item 1
+              id: 1
+              operation: !include ../../examples/operation-411.raml
+              user: !include ../../examples/user-simple-1.raml
+              amount: 50000
+              reason: Domicile payment
+              registerType: IN
+              registerDate: 2017-04-01T08:00:00.000Z
+            - # item 2
+              id: 2
+              operation: !include ../../examples/operation-411.raml
+              user: !include ../../examples/user-simple-2.raml
+              amount: 20000
+              reason: Stationery expenses
+              registerType: OUT
+              registerDate: 2017-04-01T08:00:00.000Z
+          total: 10
+post:
+  body:
+    type: CashRequest
+    example:
+      operation: 1
+      amount: 50000
+      reason: Domicile payment
+      registerType: IN
+/{id}:
+  get:
+    description: Get information about a cash register.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: CashResponse
+          example:
+            id: 1
+            operation: !include ../../examples/operation-411.raml
+            user: !include ../../examples/user-simple-1.raml
+            amount: 50000
+            reason: Domicile payment
+            registerType: IN
+            registerDate: 2017-04-01T08:00:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+/tallying: !include ../cashTallying/cash-tallying.raml      
+
+
+        

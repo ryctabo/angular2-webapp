@@ -1,0 +1,47 @@
+#%RAML 1.0
+type: collection
+get:
+  responses:
+    200:
+      body:
+        type: AssignmentResponse[]
+        example:
+          - # start item 1
+            index: 1
+            messenger: !include ../../examples/messenger-simple.raml
+            registerDate: 2017-05-01T12:30:00.000Z
+          - # start item 2
+            index: 2
+            messenger: !include ../../examples/messenger-simple.raml
+            registerDate: 2017-05-01T12:36:45.000Z
+post:
+  body:
+    type: AssignmentRequest
+    example:
+      messengerId: 1
+  responses:
+    201:
+      body:
+        type: AssignmentResponse
+        example:
+          index: 1
+          messenger: !include ../../examples/messenger-simple.raml
+          registerDate: 2017-05-01T12:30:00.000Z
+/{index}:
+  description: A specific assigment, a item of the assignments list.
+  uriParameters:
+    index:
+      description: Assignment INDEX is required.
+      type: number
+  get:
+    description: Get information about a assignment.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: AssignmentResponse
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

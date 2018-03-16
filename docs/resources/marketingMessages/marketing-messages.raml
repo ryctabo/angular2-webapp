@@ -1,0 +1,115 @@
+#%RAML 1.0
+type: collection
+displayName: Marketing Messages
+description: |
+  This resource contains all the necessary operations for the management
+  of the marketing messages, among these operations we will have HTTP
+  methods to get all the elements, to get a single element, to add new
+  elements to the resource, to edit the existing elements and finally to
+  eliminate.
+get:
+  description: Get a list of all the marketing messages.
+  is: [paged]
+  queryParameters:
+    customerId:
+      description: Specify the id of the customer.
+      type: number
+      minimum: 1
+      example: 10
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: MarketingMessageResponse[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              registerDate: 2017-04-01T08:00:00.000Z
+              customer: !include ../../examples/customer-simple-1.raml
+              user: !include ../../examples/user-simple-1.raml
+              observations: This are the observations.
+              visit: true
+              call: true
+            - #start item 2
+              id: 2
+              registerDate: 2017-05-01T08:00:00.000Z
+              customer: !include ../../examples/customer-simple-2.raml
+              user: !include ../../examples/user-simple-2.raml
+              observations: This are the observations.
+              visit: true
+              call: true
+          total: 2
+post:
+  description: Add a new marketing message.
+  body:
+    description: The marketing message data is required to create.
+    type: MarketingMessageRequest
+    example:
+      customerId: 1
+      observations: This are the observations.
+      visit: true
+      call: true
+  responses:
+    201:
+      description: It has created a new marketing message.
+      body:
+        type: MarketingMessageResponse
+        example:
+          id: 1
+          registerDate: 2017-04-01T08:00:00.000Z
+          customer: !include ../../examples/customer-simple-1.raml
+          user: !include ../../examples/user-simple-1.raml
+          observations: This are the observations.
+          visit: true
+          call: true
+/{id}:
+  description: |
+    A specific marketing message, a item of the
+    marketing messages list.
+  uriParameters:
+    id:
+      description: Marketing message ID is required.
+      type: number
+  get:
+    description: Get information about a marketing message.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: MarketingMessageResponse
+          example:
+            id: 1
+            registerDate: 2017-04-01T08:00:00.000Z
+            customer: !include ../../examples/customer-simple-1.raml
+            user: !include ../../examples/user-simple-2.raml
+            observations: This are the observations.
+            visit: true
+            call: true
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  delete:
+    description: Remove a specific marketing message.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: MarketingMessageResponse
+          example:
+            id: 1
+            registerDate: 2017-04-01T08:00:00.000Z
+            customer: !include ../../examples/customer-simple-1.raml
+            user: !include ../../examples/user-simple-1.raml
+            observations: This are the observations.
+            visit: true
+            call: true
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

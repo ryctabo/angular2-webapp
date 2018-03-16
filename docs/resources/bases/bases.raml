@@ -1,0 +1,70 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [paged]
+  queryParameters:
+    messengerId:
+      description: |
+        Provide the messenger ID if you need to obtain the messenger bases.
+      type: number
+    debt:
+      description: |
+        True, if you need to get the bases that are in debt.
+      type: boolean
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: BaseResponse[]
+          total: integer
+post:
+  description: |
+    Register a delivery or return of the bases.<br><br>
+    The amount of bases to be delivered can be negative or positive, if it is
+    negative then it is taken as a return of bases and if it is positive then
+    it is taken as a delivery of bases.
+  body:
+    type: BaseRequest
+  responses:
+    201:
+      body:
+        type: BaseResponse
+/{id}:
+  description: |
+    A specific base, a item of the bases list.
+  uriParameters:
+    id:
+      description: Base ID is required.
+      type: number
+  get:
+    description: Get information about a base.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: BaseResponse
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  post:
+    description: |
+      Register a delivery or return of the bases.<br><br>
+      The amount of bases to be delivered can be negative or positive, if it is
+      negative then it is taken as a return of bases and if it is positive then
+      it is taken as a delivery of bases.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    body: 
+      description: The base data is required to save.
+      type: BaseRequest
+    responses: 
+      200:
+        description: It has saved a base.
+        body:
+          type: BaseResponse
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

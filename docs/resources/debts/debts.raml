@@ -1,0 +1,165 @@
+#%RAML 1.0
+type: collection
+displayName: Debts
+description: |
+  This resource contains all the necessary operations for the management
+  of the debts, among these operations we will have HTTP
+  methods to get all the elements, to get a single element, to add new
+  elements to the resource and finally to edit the existing elements.
+get:
+  is: [ searchable, paged, orderable, dateFilter ]
+  queryParameters:
+    closureState:
+      description: Specify the closure state of the debts.
+      type: boolean
+      example: true
+  description: Get a list of all the debts.
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: DebtResponse[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              concept: This is the concept
+              value: 25000.0
+              feeInfo:
+                id: 1
+                firstPayment: 2018-04-17
+                numberOfFees: 12
+                period: DAILY
+              owner: !include ../../examples/user-simple-1.raml
+              created: 2018-04-17T11:20:00.000Z
+            - # start item 2
+              id: 2
+              value: 53000.0
+              concept: This is the second concept
+              closure:
+                closuredBy: !include ../../examples/user-simple-2.raml
+                closuredType: PAID_OUT
+                observation: This is the observation
+                date: 2018-04-17T11:20:00.000Z
+              feeInfo: 
+                id: 2
+                firstPayment: 2018-04-17
+                numberOfFees: 3
+                period: WEEKLY
+              owner: !include ../../examples/user-simple-1.raml
+              created: 2018-04-17T11:20:00.000Z
+          total: 2
+post:
+  description: Add a new debt.
+  body:
+    type: DebtRequest
+    example:
+      value:
+        concept: 'This is the concept'
+        value: 25000.0
+        ownerId: 1
+        feeInfo:
+          firstPayment: 2018-04-17
+          numberOfFees: 12
+          period: DAILY
+  responses:
+    201:
+      body:
+        type: DebtResponse
+        example:
+          value:
+            id: 1
+            concept: This is the concept
+            value: 25000.0
+            feeInfo:
+              id: 1
+              firstPayment: 2018-04-17
+              numberOfFees: 12
+              period: DAILY
+            owner: !include ../../examples/user-simple-1.raml
+            created: 2018-04-17T11:20:00.000Z
+/{id}:
+  description: A specific debt, a item of the debts list.
+  get:
+    description: Get information about a debt.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        body:
+          type: DebtResponse
+          example:
+            value:
+              id: 1
+              concept: This is the concept
+              value: 25000.0
+              feeInfo:
+                id: 1
+                firstPayment: 2018-04-17
+                numberOfFees: 12
+                period: DAILY
+              owner: !include ../../examples/user-simple-1.raml
+              created: 2018-04-17T11:20:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  put:
+    description: Update information about the specific debt.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    body:
+      type: DebtRequest
+      example:
+        value:
+          concept: 'This is the concept'
+          value: 25000.0
+          ownerId: 1
+          feeInfo:
+            firstPayment: 2018-04-17
+            numberOfFees: 12
+            period: DAILY
+    responses:
+      200:
+        body:
+          type: DebtResponse
+          example:
+            value:
+              id: 1
+              concept: This is the concept
+              value: 25000.0
+              feeInfo:
+                id: 1
+                firstPayment: 2018-04-17
+                numberOfFees: 12
+                period: DAILY
+              owner: !include ../../examples/user-simple-1.raml
+              created: 2018-04-17T11:20:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /closure: 
+    description: The closure of a specific debt.
+    put:
+      description: Update closure information about the specific debt.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      body:
+        type: Closure
+        example:
+          closuredType: PAID_OUT
+          observation: This is the observation
+      responses:
+        200:
+          body:
+            type: Closure
+            example:
+              closuredBy: !include ../../examples/user-simple-2.raml
+              closuredType: PAID_OUT
+              observation: This is the obserbation
+              date: 2017-04-14T14:01:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /payments: !include payments/payments.raml

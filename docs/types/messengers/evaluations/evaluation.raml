@@ -1,0 +1,13 @@
+#%RAML 1.0
+properties:
+  id?: number
+  user?: UserSimple
+  messengerId: number
+  detail?:
+  speed:
+    enum: [FAST, SLOW]
+  management:
+    enum: [BAD, NORMAL, GOOD]
+  confidence:
+    enum: [NULL, LOW, MEDIUM, HIGH, SUPER_HIGH]
+  registerDate?: datetime

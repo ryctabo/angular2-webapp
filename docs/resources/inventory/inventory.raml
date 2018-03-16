@@ -1,0 +1,86 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable ]
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: Inventory[]
+          total: number
+        example:
+          items:
+            - # start item 1
+              id: 1
+              name: 'object #1'
+              count: 10
+              registerDate: 2017-04-10T12:30:00.000Z
+              updatedDate: 2017-04-26T16:23:00.000Z
+            - # start item 2
+              id: 2
+              name: 'object #2'
+              count: 53
+              registerDate: 2017-04-10T12:30:00.000Z
+              updatedDate: 2017-04-26T16:23:00.000Z
+          total: 25
+post:
+  body:
+    example:
+      name: Object name
+      count: 50
+/{id}:
+  type: member
+  get:
+    responses: 
+      200:
+        body:
+          example:
+            id: 1
+            name: 'object #1'
+            count: 10
+            registerDate: 2017-04-10T12:30:00.000Z
+            updatedDate: 2017-04-26T16:23:00.000Z
+  /messengers:
+    get:
+      description: |
+        Get a list of messenger with loans and returns of inventory
+        element provided.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: MessengerInfo[]
+            example:
+              - # start item 1
+                messenger: !include ../../examples/messenger-simple.raml
+                loans: 10
+                returns: 9
+              - # start item 2
+                messenger: !include ../../examples/messenger-simple.raml
+                loans: 20
+                returns: 16
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /chipInfo:
+    get:
+      description: Get a chip info of a inventory element provided.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses:
+        200:
+          description: Successfull request.
+          body:
+            type: ChipInfo
+            example:
+              busy: 4
+              loans: 6
+              returns: 2
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  # stock sub resource
+  /stocks: !include stock.raml

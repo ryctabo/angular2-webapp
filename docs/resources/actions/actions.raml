@@ -1,0 +1,55 @@
+#%RAML 1.0
+type: collection
+get:
+  queryParameters:
+    messengerId?:
+      description: The messenger ID
+      type: number
+      example: 1
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            id: 1
+            title: Title
+            description: This is a description.
+            registerDate: 2017-04-14T10:49:00.000Z
+          - # start item 2
+            id: 2
+            title: The second title
+            description: This is a second description.
+            registerDate: 2017-04-16T21:53:00.000Z
+post:
+  body:
+    example:
+      title: Title
+      description: This is a description.
+/{id}:
+  type: member
+  get:
+    queryParameters:
+      messengerId:
+        description: The messenger ID
+        type: number
+        example: 1
+    responses: 
+      200:
+        body:
+          example:
+            id: 1
+            title: Title
+            description: This is a description.
+            registerDate: 2017-04-14T10:49:00.000Z
+  put:
+    queryParameters:
+      messengerId:
+        description: The messenger ID
+        type: number
+        example: 1
+  delete:
+    queryParameters:
+      messengerId:
+        description: The messenger ID
+        type: number
+        example: 1

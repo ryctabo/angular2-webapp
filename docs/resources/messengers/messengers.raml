@@ -1,0 +1,71 @@
+#%RAML 1.0
+type: collection
+get:
+  is: [ searchable, paged, orderable ]
+  queryParameters:
+    dismissal?:
+      description: True, if you need get list filtered by dismissal.
+      type: boolean
+    category?:
+      description: Provida if you need get list filtered by category.
+      type: integer
+      minimum: 1
+      maximum: 5
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: MessengerResponse[]
+          total: number
+post:
+  body:
+    type: MessengerRequest
+  responses:
+    201:
+      body:
+        type: MessengerResponse
+/{id}:
+  type: member
+  get:
+    responses:
+      200:
+        body:
+          type: MessengerResponse
+  put:
+    body:
+      type: MessengerRequest
+    responses:
+      200:
+        body: 
+          type: MessengerResponse
+  delete:
+    responses:
+      200:
+        body:
+          type: MessengerResponse
+  /retire:
+    put:
+      description: It allows to retire a messenger from the platform 
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses:
+        200:
+          body:
+            type: MessengerResponse
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /comeback:
+    put:
+      description: It allows to come back a messenger to the platform 
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      responses:
+        200:
+          body:
+            type: MessengerResponse
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+/vehicles: !include vehicles.raml

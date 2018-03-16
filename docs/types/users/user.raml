@@ -1,0 +1,22 @@
+#%RAML 1.0
+properties:
+  id?: number
+  username?:
+    pattern: ^(?!\d*$)[_a-z\d]{3,12}$$
+    minLength: 3
+    maxLength: 12
+  email:
+    pattern: ^([\w\.-]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})$
+  displayName:
+  userType:
+    enum: [SUPER_USER, ADMINISTRATOR, OPERATOR, MESSENGER, CLIENT]
+  roleId?: number
+  urlPic?:
+  operations: number[]
+  enabled?: boolean
+  created?:
+    type: datetime
+    format: rfc3339
+  updated?:
+    type: datetime
+    format: rfc3339

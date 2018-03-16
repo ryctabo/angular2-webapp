@@ -1,0 +1,62 @@
+#%RAML 1.0../../
+get:
+  description: |
+    Gets a list of discount change logs.
+  headers:
+    Accept-Language?: !include ../../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: DiscountChangeLog[] 
+        example:
+          - # start item 1
+            index: 1
+            user: 
+              id: 1
+              displayName: victorprens
+              email: victorprens@arpia.com
+              username: vprens
+              urlPic: http://static.arpia.com/imgs/img_001.jpg
+            date: 2017-04-17T11:20:41-05:00
+            - # start item 2
+            index: 2
+            user:
+              id: 1 
+              displayName: victorprens
+              email: victorprens@arpia.com
+              username: vprens
+              urlPic: http://static.arpia.com/imgs/img_001.jpg
+            date: 2017-05-17T11:20:41-05:00
+    400: !include ../../errors/error-400.raml
+    404: !include ../../errors/error-404.raml
+    500: !include ../../errors/error-500.raml
+/{index}:
+  description: |
+    A specific discount change log, a item of the
+    discount change logs list.
+  uriParameters:
+    index:
+      description: discount change log index is required.
+      type: number
+  get:
+    description: Get information about a discount change log.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: DiscountChangeLog
+          example:
+            index: 1
+            user:
+              id: 1 
+              displayName: victorprens
+              email: victorprens@arpia.com
+              username: vprens
+              urlPic: http://static.arpia.com/imgs/img_001.jpg
+            date: 2017-04-17T11:20:41-05:00
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml

@@ -1,0 +1,95 @@
+#%RAML 1.0
+type: collection
+get:
+  responses:
+    200:
+      body:
+        type: ShiftResponse[]
+        example:
+          - index: 1
+            shiftplanningId: 1
+            startTime: 2017-05-31T05:30:00.000Z
+            endTime: 2017-05-31T10:00:00.000Z
+            count: 1
+          - index: 2
+            shiftplanningId: 1
+            startTime: 2017-05-31T05:30:00.000Z
+            endTime: 2017-05-31T10:00:00.000Z
+            count: 2
+post:
+  responses:
+    200:
+      body:
+        example:
+          startTime: 2017-05-31T05:30:00.000Z
+          endTime: 2017-05-31T10:00:00.000Z
+          count: 1
+/{index}:
+  description: A specific shift, a item of the shifts list.
+  uriParameters:
+    index:
+      description: Shift INDEX is required
+      type: number
+  get:
+    description: Get information about a shift.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: ShiftResponse
+          example:
+            index: 2
+            shiftplanningId: 1
+            startTime: 2017-05-31T05:30:00.000Z
+            endTime: 2017-05-31T10:00:00.000Z
+            count: 2
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  put:
+    description: Update information about the specific shift.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    body: 
+      description: The shift data is required to update.
+      type: Shift
+      example:
+        startTime: 2017-05-31T05:30:00.000Z
+        endTime: 2017-05-31T10:00:00.000Z
+        count: 1
+    responses: 
+      200:
+        description: It has updated a shift.
+        body:
+          type: ShiftResponse
+          example:
+            index: 2
+            shiftplanningId: 1
+            startTime: 2017-05-31T05:30:00.000Z
+            endTime: 2017-05-31T10:00:00.000Z
+            count: 2
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  delete:
+    description: Remove a specific shift.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: ShiftResponse
+          example:
+            index: 2
+            shiftplanningId: 1
+            startTime: 2017-05-31T05:30:00.000Z
+            endTime: 2017-05-31T10:00:00.000Z
+            count: 2
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /assignments: !include shift-assignment.raml
+  /checks: !include shift-check.raml

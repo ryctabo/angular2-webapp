@@ -1,0 +1,11 @@
+#%RAML 1.0
+usage: Apply this to any method that can be ordered.
+description: Some requests need to be sorted.
+queryParameters:
+  orderBy?:
+    description: Specify the property of the object be sorted.
+    type: string
+  orderType?:
+    description: Specify whether to sort ascending or descending
+    enum: [ ASC, DESC ]
+    default: ASC

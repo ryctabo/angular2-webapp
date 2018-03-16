@@ -1,0 +1,77 @@
+#%RAML 1.0
+type: collection
+displayName: Special Dates
+description: |
+  This resource contains all the necessary operations for the management
+  of the special dates, among these operations we will have HTTP
+  methods to get all the elements, to get a single element, to add new
+  elements to the resource, to edit the existing elements and finally to
+  eliminate.
+get:
+  description: Get a list of all the special dates.
+  responses:
+    200:
+      body:
+        type: SpecialDate[]
+        example:
+          - # start item 1
+            id: 1
+            name: 'special date #1'
+            date: 2017-04-01T08:00:00.000Z
+          - #start item 2
+            id: 2
+            name: 'special date #2'
+            date: 2017-05-01T08:00:00.000Z
+post:
+  description: Add a new special date.
+  body:
+    type: SpecialDate
+    example:
+      name: 'special date #1'
+      date: 2017-04-01T08:00:00.000Z
+  responses:
+    201:
+      body:
+        type: SpecialDate
+        example:
+          id: 1
+          name: 'special date #1'
+          date: 2017-04-01T08:00:00.000Z
+/{id}:
+  description: A specific special date, a item of the special dates list.
+  type: member
+  get:
+    description: Get information about a special date.
+    responses:
+      200:
+        body:
+          type: SpecialDate
+          example:
+            id: 1
+            name: 'special date #1'
+            date: 2017-04-01T08:00:00.000Z
+  put:
+    description: Update information about the specific special date.
+    body:
+      type: SpecialDate
+      example:
+        name: 'special date #1'
+        date: 2017-04-01T08:00:00.000Z
+    responses:
+      200:
+        body:
+          type: SpecialDate
+          example:
+            id: 1
+            name: 'special date #1'
+            date: 2017-04-01T08:00:00.000Z
+  delete:
+    description: Remove a specific special date.
+    responses:
+      200:
+        body:
+          type: SpecialDate
+          example:
+            id: 1
+            name: 'special date #1'
+            date: 2017-04-01T08:00:00.000Z

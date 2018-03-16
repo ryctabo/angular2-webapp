@@ -1,0 +1,41 @@
+#%RAML 1.0
+usage: This resourceType should be used for any collection of items
+displayName: <<resourcePathName | !uppercamelcase>>
+description: |
+  This resource contains all the necessary operations for the management
+  of the <<resourcePathName>>, among these operations we will have HTTP
+  methods to get all the elements, to get a single element, to add new
+  elements to the resource, to edit the existing elements and finally to
+  eliminate.
+get:
+  description: Get a list of all <<resourcePathName>>.
+  headers:
+    Accept-Language?: !include ../accept-language.raml
+  responses:
+    200:
+      description: Successfull request.
+      body:
+        type: <<resourcePathName | !singularize | !uppercamelcase>>[]
+    404: !include ../errors/error-404.raml
+    500: !include ../errors/error-500.raml
+post:
+  description: Add a new <<resourcePathName | !singularize>>.
+  headers:
+    Accept-Language?: !include ../accept-language.raml
+  body:
+    description: The <<resourcePathName | !singularize>> data is required to create.
+    type: <<resourcePathName | !singularize | !uppercamelcase>>
+  responses:
+    201:
+      description: It has created a new <<resourcePathName | !singularize>>.
+      headers:
+        Location: 
+          description: |
+            Location where you can get the information of the created
+            <<resourcePathName | !singularize>>.
+          example: http://api.arpia.com/v1/<<resourcePathName>>/1
+      body:
+        type: <<resourcePathName | !singularize | !uppercamelcase>>
+    400: !include ../errors/error-400.raml
+    404: !include ../errors/error-404.raml
+    500: !include ../errors/error-500.raml

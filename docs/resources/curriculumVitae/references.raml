@@ -1,0 +1,46 @@
+#%RAML 1.0
+type: collection
+get:
+  responses:
+    200:
+      body:
+        example:
+          - # start item 1
+            index: 1
+            name: Ali
+            lastName: Connors
+            address: 'CRA 45 # 15-32'
+            phoneNumber: '1234567890'
+            type: PERSONAL
+            relationship: OTHER
+          - # start item 2
+            index: 2
+            name: Sandra
+            lastName: Adams
+            address: 'CRA 45 # 15-32'
+            phoneNumber: '9876543210'
+            type: FAMILY
+            relationship: BROTHERS
+post:
+  body:
+    example:
+      name: Ali
+      lastName: Connors
+      address: 'CRA 45 # 15-32'
+      phoneNumber: '1234567890'
+      type: PERSONAL
+      relationship: OTHER
+/{id}:
+  type: member
+  get:
+    responses: 
+      200:
+        body:
+          example:
+            index: 1
+            name: Ali
+            lastName: Connors
+            address: 'CRA 45 # 15-32'
+            phoneNumber: '1234567890'
+            type: PERSONAL
+            relationship: OTHER

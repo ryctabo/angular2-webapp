@@ -1,0 +1,149 @@
+#%RAML 1.0
+type: collection
+displayName: Good Standing
+get:
+  is: [ paged ]
+  queryParameters:
+    messengerId?:
+      description: If provide this param then get a list filtered by messenger.
+      type: number
+      example: 10
+  responses:
+    200:
+      body:
+        type: object
+        properties:
+          items: GoodStandingResponse[]
+          total: number
+        example: 
+          items:
+            - # start item 1
+              id: 1
+              refundDate: 2017-05-15
+              reason: This is a reason.
+              observations: This is a observation.
+              message: This is a message.
+              operation: !include ../../examples/operation-411.raml
+              messenger: !include ../../examples/messenger-simple.raml
+              registerDate: 2017-04-26T12:30:00.000Z
+              approved: true
+              approvalDate: 2017-05-20T00:00:00.000Z
+            - # start item 2
+              id: 2
+              refundDate: 2017-05-15
+              reason: This is a reason.
+              observations: This is a observation.
+              message: This is a message.
+              operation: !include ../../examples/operation-357.raml
+              messenger: !include ../../examples/messenger-simple.raml
+              registerDate: 2017-04-26T12:30:00.000Z
+              approved: true
+              approvalDate: 2017-05-20T00:00:00.000Z
+          total: 10
+post:
+  body:
+    type: GoodStandingRequest
+    example:
+      reason: This is a reason
+      operation: 1
+      messenger: 1
+  responses:
+    201:
+      body:
+        type: GoodStandingResponse
+        example:
+          id: 1
+          reason: This is a reason.
+          operation: !include ../../examples/operation-411.raml
+          messenger: !include ../../examples/messenger-simple.raml
+          registerDate: 2017-04-26T12:30:00.000Z
+/{id}:
+  get:
+    description: Get information about a good standing.
+    headers:
+      Accept-Language?: !include ../../accept-language.raml
+    responses:
+      200:
+        description: Successfull request.
+        body:
+          type: GoodStandingResponse
+          example:
+            id: 1
+            refundDate: 2017-05-15
+            reason: This is a reason.
+            observations: This is a observation.
+            message: This is a message.
+            operation: !include ../../examples/operation-411.raml
+            messenger: !include ../../examples/messenger-simple.raml
+            registerDate: 2017-04-26T12:30:00.000Z
+            approved: true
+            approvalDate: 2017-05-20T00:00:00.000Z
+      400: !include ../../errors/error-400.raml
+      404: !include ../../errors/error-404.raml
+      500: !include ../../errors/error-500.raml
+  /approve:
+    put:
+      description: It approves a good standing.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      body:
+        description: The good standing data is required to approve.
+        type: GoodStandingReqApprove
+        example:
+          refundDate: 2017-05-15
+          observations: This is a observation.
+          message: This is a message.
+      responses:
+        201:
+          description: Approved good standing.
+          body:
+            type: GoodStandingResponse
+            example:
+              id: 1
+              refundDate: 2017-05-15
+              reason: This is a reason.
+              observations: This is a observation.
+              message: This is a message.
+              operation:
+                id: 1
+                name: Operation 411
+                alias: "411"
+              messenger: !include ../../examples/messenger-simple.raml
+              registerDate: 2017-04-26T12:30:00.000Z
+              approved: true
+              approvalDate: 2017-05-20T00:00:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml
+  /deny:
+    put:
+      description: It denies a good standing.
+      headers:
+        Accept-Language?: !include ../../accept-language.raml
+      body:
+        description: The good standing data is required to approve.
+        type: GoodStandingReqDeny
+        example:
+          observations: This is a observation.
+          message: This is a message.
+      responses:
+        201:
+          description: Approved good standing.
+          body:
+            type: GoodStandingResponse
+            example:
+              id: 1
+              reason: This is a reason.
+              observations: This is a observation.
+              message: This is a message.
+              operation:
+                id: 1
+                name: Operation 411
+                alias: "411"
+              messenger: !include ../../examples/messenger-simple.raml
+              registerDate: 2017-04-26T12:30:00.000Z
+              approved: false
+              approvalDate: 2017-05-20T00:00:00.000Z
+        400: !include ../../errors/error-400.raml
+        404: !include ../../errors/error-404.raml
+        500: !include ../../errors/error-500.raml

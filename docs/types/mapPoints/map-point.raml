@@ -1,0 +1,13 @@
+#%RAML 1.0
+properties:
+  id?: number
+  name:
+  coordinates:
+    properties:
+      latitude: number
+      longitude: number
+  coverage?: integer
+  type:
+    enum: [ CRITICAL, FIXED ]
+  schedules: Schedule[]
+  pricings: Pricing[]

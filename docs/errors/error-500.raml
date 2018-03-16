@@ -1,0 +1,16 @@
+#%RAML 1.0
+description: |
+  The server encountered an unexpected condition that
+  prevented it from fulfilling the request.<br><br>
+  If an error occurred on the server, the required operation
+  could not be performed, sorry.
+body:
+  type: ErrorMessage
+  example:
+    documentation: http://api.arpia.com
+    statusCode: 500
+    messages:
+      - # start item 1
+        message: This is a first error message.
+      - # start item 2
+        message: This is a second error message.

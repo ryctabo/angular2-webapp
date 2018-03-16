@@ -1,0 +1,15 @@
+#%RAML 1.0
+properties:
+  id?: number
+  identification:
+    maxLength: 15
+  name:
+    maxLength: 60
+  lastName:
+    maxLength: 50
+  addresses: Address[]
+  emails: Email[]
+  phones: Phone[]
+  gender?:
+    enum: [MALE, FEMALE]
+  birthday?: datetime
