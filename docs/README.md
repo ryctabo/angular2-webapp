@@ -1,6 +1,6 @@
-# Arpia Documentation
+# RAML Documentation project
 
-The documentation within the Arpia Backend project is handled with the [RAML](http://raml.org/ "RAML Official Page") version [1.0](https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md/ "RAML Specification Language"), which is a modeling language for APIs that allows us to document the project easily and quickly.
+The documentation within the backend project is handled with the [RAML](http://raml.org/ "RAML Official Page") version [1.0](https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md/ "RAML Specification Language"), which is a modeling language for APIs that allows us to document the project easily and quickly.
 
 To compile, validate and generate the documentation we use a component called [raml2html](https://www.npmjs.org/package/raml2html), in the following paragraphs we will take the steps to be able to use it.
 
@@ -51,7 +51,8 @@ $ raml2html -v main.raml > index.html
 Within our project we are placing the main files in the following routes:
 
 ```
-arpia-webapi
+
+-webapi
 |--docs/
 |  |--main.raml
 |--src/
